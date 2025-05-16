@@ -1,7 +1,7 @@
 import kaboom from "kaboom";
 
 export const scale = 2;
-export let k; 
+export let k;
 
 export function initKaboom(canvas) {
   k = kaboom({
@@ -74,6 +74,32 @@ export function loadAssets(k) {
       sliceX: 8,
       anims: {
         default: { from: 0, to: 4, loop: true, speed: 7 },
+      },
+    },
+  });
+
+  k.loadSpriteAtlas("./assets/coin.png", {
+    coin: {
+      x: 125,
+      y: 145,
+      width: 134,
+      height: 16,
+      sliceX: 8,
+      anims: {
+        default: { from: 0, to: 3, loop: true, speed: 7 },
+      },
+    },
+  });
+
+  k.loadSpriteAtlas("./assets/coin.png", {
+    counter: {
+      x: 125,
+      y: 145,
+      width: 134,
+      height: 16,
+      sliceX: 8,
+      anims: {
+        default: { from: 0, to: 3, loop: true, speed: 7 },
       },
     },
   });

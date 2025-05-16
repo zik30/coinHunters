@@ -1,8 +1,9 @@
 import { state, statePropsEnum } from "../state/globalStateManager.js";
-import { makeHealthBar } from "../ui/healthBar.js";
+import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
 export function makePlayer(k, healthBar) {
+  const counter = makeCounter(k)
   return k.make([
     k.pos(),
     k.sprite("player"),
@@ -138,6 +139,11 @@ export function makePlayer(k, healthBar) {
           state.set(statePropsEnum.playerHp, this.hp());
           healthBar.trigger("update");
         });
+
+        this.on( "getCoin", (amount) =>{
+          state.set(statePropsEnum.coin, state.current().coin + amount);
+          counter.trigger("update"); 
+        })
 
         this.on("hurt", () => {
           makeBlink(k, this);
