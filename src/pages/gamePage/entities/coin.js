@@ -13,6 +13,7 @@ export function makeCoin(k, pos) {
         k.play( "health", {volume: 6.5} );
         state.set(statePropsEnum.coin, state.current().coin + 250);
         console.log("coin", state.current().coin);
+        localStorage.setItem("coin",state.current().coin)
         
         k.destroy(coin)
 

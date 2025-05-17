@@ -19,8 +19,9 @@ import { makeCounter } from "../ui/coinCounter.js";
 export async function room1(
   k,
   roomData,
-  previousSceneData = { exitName: null }
+  previousSceneData = { selectedCharacter: "player" }
 ) {
+  const { selectedCharacter } = previousSceneData;
   setBackgroundColor(k, "#a2aed5");
 
   const healthBar = makeHealthBar(k)
@@ -37,7 +38,7 @@ export async function room1(
 
   setMapColliders(k, map, colliders);
 
-  const player = map.add(makePlayer(k, healthBar));
+  const player = map.add(makePlayer(k, healthBar, selectedCharacter));
 
   setCameraControls(k, player, map, roomData);
 

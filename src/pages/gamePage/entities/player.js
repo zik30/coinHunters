@@ -2,11 +2,11 @@ import { state, statePropsEnum } from "../state/globalStateManager.js";
 import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
-export function makePlayer(k, healthBar) {
+export function makePlayer(k, healthBar, spriteName = "player") {
   const counter = makeCounter(k)
   return k.make([
     k.pos(),
-    k.sprite("player"),
+    k.sprite(spriteName, { anim: "idle" }),
     k.area({ shape: new k.Rect(k.vec2(0, 18), 12, 12) }),
     k.anchor("center"),
     k.body({ mass: 100, jumpForce: 320 }),
@@ -160,7 +160,7 @@ export function makePlayer(k, healthBar) {
 
         this.onAnimEnd((anim) => {
           if (anim === "explode") {
-            k.go("room1");
+            window.location.href = '/leaderboard'
           }
         });
       },

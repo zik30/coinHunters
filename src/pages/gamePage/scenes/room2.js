@@ -9,7 +9,8 @@ import {
   setCameraControls,
 } from "./roomUtils.js";
 
-export function room2(k, roomData, previousSceneData) {
+export function room2(k, roomData, previousSceneData = { selectedCharacter: "player" }) {
+  const { selectedCharacter } = previousSceneData;
   setBackgroundColor(k, "#a2aed5");
   const healthBar = makeHealthBar(k)
 
@@ -23,7 +24,7 @@ export function room2(k, roomData, previousSceneData) {
   const colliders = roomLayers[4].objects;
   setMapColliders(k, map, colliders);
 
-  const player = k.add(makePlayer(k, healthBar));
+  const player = k.add(makePlayer(k, healthBar, selectedCharacter));
 
   setCameraControls(k, player, map, roomData);
 
