@@ -4,6 +4,8 @@ import { room1 } from "./scenes/room1";
 import { setBackgroundColor } from "./scenes/roomUtils";
 import { room2 } from "./scenes/room2";
 import { makeNotificationBox } from "./ui/notificationBox";
+import { characterSelection } from "./scenes/characterSelection";
+import { directionSelector } from "./scenes/directionSelector";
 
 const Game = () => {
   const canvasRef = useRef(null);
@@ -36,6 +38,11 @@ const Game = () => {
       });
     }
 
+    k.scene("characterSelection", characterSelection);
+    k.scene("directionSelector",() => directionSelector(k) )
+    k.scene("room1", (ctx) => room1(k, ctx));
+    k.scene("room2", (ctx) => room2(k, ctx));
+
     k.scene("intro", () => {
       setBackgroundColor(k, "#20214a");
       k.add(
@@ -52,7 +59,7 @@ const Game = () => {
       });
     });
 
-    k.go("intro");
+    k.go("directionSelector");
     main();
 
     return () => {

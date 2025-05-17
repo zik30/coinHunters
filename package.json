@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.76.1",
     "antd": "^5.25.1",
+    "game1": "file:",
     "kaboom": "^3000.1.17",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
