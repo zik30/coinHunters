@@ -1,7 +1,7 @@
 import kaboom from "kaboom";
 
 export const scale = 2;
-export let k;
+export let k; 
 
 export function initKaboom(canvas) {
   k = kaboom({
@@ -20,6 +20,46 @@ export function loadAssets(k) {
   k.loadFont("glyphmesss", "./assets/glyphmesss.ttf");
 
   k.loadSprite("player", "./assets/sprites/u.png", {
+    sliceX: 8,
+    sliceY: 9,
+    anims: {
+      idle: { from: 0, to: 7, loop: true },
+      run: { from: 8, to: 13, loop: true },
+      jump: { from: 51, to: 51, loop: true },
+      fall: { from: 54, to: 54, loop: true },
+      explode: { from: 64, to: 69 },
+      attack: { from: 24, to: 28, speed: 16 },
+    },
+  });
+
+    
+  k.loadSprite("player", "./assets/sprites/u.png", {
+    sliceX: 8,
+    sliceY: 9,
+    anims: {
+      idle: { from: 0, to: 7, loop: true },
+      run: { from: 8, to: 13, loop: true },
+      jump: { from: 51, to: 51, loop: true },
+      fall: { from: 54, to: 54, loop: true },
+      explode: { from: 64, to: 69 },
+      attack: { from: 24, to: 28, speed: 16 },
+    },
+  });
+
+  k.loadSprite("player2", "./assets/sprites/u2.png", {
+    sliceX: 8,
+    sliceY: 9,
+    anims: {
+      idle: { from: 0, to: 7, loop: true },
+      run: { from: 8, to: 13, loop: true },
+      jump: { from: 51, to: 51, loop: true },
+      fall: { from: 54, to: 54, loop: true },
+      explode: { from: 64, to: 69 },
+      attack: { from: 24, to: 28, speed: 16 },
+    },
+  });
+
+  k.loadSprite("player3", "./assets/sprites/u3.png", {
     sliceX: 8,
     sliceY: 9,
     anims: {
@@ -115,8 +155,8 @@ export function loadAssets(k) {
   });
 
   k.loadSound("notify", "./assets/sounds/notify.mp3");
-  k.loadSound("boom", "./assets/sounds/boom.wav");
-  k.loadSound("health", "./assets/sounds/health.wav");
+  k.loadSound("boom", "./assets/sounds/Ahtung.m4a");
+  k.loadSound("health", "./assets/sounds/Aliluya.m4a");
   k.loadSound("flamethrower", "./assets/sounds/flamethrower.mp3");
 
   k.loadSprite("room1", "./maps/room1.png");
