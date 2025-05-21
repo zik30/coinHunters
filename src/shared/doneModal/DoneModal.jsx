@@ -3,7 +3,7 @@ import style from "./doneModal.module.scss";
 import { useNavigate } from "react-router-dom";
 
 
-const DoneModal = ({ background }) => {
+const DoneModal = ({ background,message,caption }) => {
     const navigate = useNavigate();
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -22,8 +22,8 @@ const DoneModal = ({ background }) => {
             <div className={style.modal}>
                 <div className={`${style.modalSignal} ${style[background]}`}></div>
                <div className={style.modalMessage}>
-                   <p>djkcasd</p>
-                   <p  className={style.modalMessageCaption}>dcasd</p>
+                   <p>{message}</p>
+                   <p  className={style.modalMessageCaption}>{caption}</p>
                </div>
             </div>
         </div>

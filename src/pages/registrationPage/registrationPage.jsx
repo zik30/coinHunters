@@ -1,14 +1,14 @@
 import style from "./RegistrationPage.module.scss";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import closeIcon from "/icons/x.svg";
-import {useEffect,  useState} from "react";
+import {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
 import DoneModal from "../../shared/doneModal/DoneModal.jsx";
 
 
 const RegistrationModal = () => {
-    const [message,setMessage]= useState(null)
+    const [message, setMessage] = useState(null)
     const regExpName = /([а-яА-ЯёЁ]|[a-zA-Z]){2}/;
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -23,8 +23,8 @@ const RegistrationModal = () => {
         handleSubmit,
         reset,
         setValue,
-        formState: { errors }
-    } = useForm({ mode: "all" });
+        formState: {errors}
+    } = useForm({mode: "all"});
 
     const checkUserExists = async (phone) => {
         try {
@@ -48,11 +48,11 @@ const RegistrationModal = () => {
                 return;
             }
             const url = "https://66a8b255e40d3aa6ff5902eb.mockapi.io/players";
-            const data = { name, id: nanoid(), phone };
+            const data = {name, id: nanoid(), phone};
 
             const response = await fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
             });
 
@@ -66,10 +66,6 @@ const RegistrationModal = () => {
             setMessage("error");
         }
     };
-
-
-
-
 
 
     const checkName = value => {
@@ -94,7 +90,7 @@ const RegistrationModal = () => {
     };
 
     const navigate = useNavigate()
-    useEffect(()=>{
+    useEffect(() => {
         console.log(message)
         if (message === "success") {
             setTimeout(() => navigate("/game"), 2000);
@@ -126,66 +122,69 @@ const RegistrationModal = () => {
             setMessage("error");
         }
     };
-    const onClose = ()=>{
+    const onClose = () => {
         navigate("/")
     }
 
 
-    return  (
+    return (
         <div className={style.modalOverlay}>
             <div className={style.modal}>
                 <button className={style.closeButton} onClick={onClose}>
-                    <img src={closeIcon} alt='' />
+                    <img src={closeIcon} alt=''/>
                 </button>
-                {message && <DoneModal background={message === "error" ? "red" : "green"} />}
-                    <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
-                        <p className={style.message}>Пройдите регистрацию</p>
-                        <div className={style.inputAreaItself}>
-                            <div className={style.wrapper}>
-                                <div className={style.inputArea}>
-                                    <input
-                                        name='name'
-                                        placeholder='Ваше ФИО'
-                                        className={`${style.input} ${errors.name ? style.errorInput : ""}`}
-                                        maxLength={50}
-                                        {...register("name", {
-                                            required: true,
-                                            validate: checkName
-                                        })}
-                                    />
-                                    {errors.name && (
-                                        <p
-                                            className={style.errorMessage}
-                                        >
-                                            * Это поле обязательно для заполнения
-                                        </p>
-                                    )}
-                                </div>
-                                <div className={style.mainInputArea}>
-                                    <input
-                                        name='phone'
-                                        className={`${style.input} ${errors.phone ? style.errorInput : ""}`}
-                                        defaultValue='+996'
-                                        {...register("phone", {
-                                            required: true,
-                                            validate: validatePhoneNumber
-                                        })}
-                                        onInput={handlePhoneChange}
-                                    />
-                                    {errors.phone && (
-                                        <p className={style.errorMessage}
-                                        >
-                                            * Это поле обязательно для заполнения
-                                        </p>
-                                    )}
-                                </div>
-
+                {message && (message === "error" ?
+                    <DoneModal background={"red"} message={"Произошла ошибка"} caption={"Приносим извинения"}/> :
+                    <DoneModal message={"Регистрация прошла успешно!"}
+                               caption={"Играйте и соберите все коины!"}/>)}
+                <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
+                    <p className={style.message}>Регистрация</p>
+                    <div className={style.inputAreaItself}>
+                        <div className={style.wrapper}>
+                            <div className={style.inputArea}>
+                                <input
+                                    name='name'
+                                    placeholder='Ваше ФИО'
+                                    className={`${style.input} ${errors.name ? style.errorInput : ""}`}
+                                    maxLength={50}
+                                    {...register("name", {
+                                        required: true,
+                                        validate: checkName
+                                    })}
+                                />
+                                {errors.name && (
+                                    <p
+                                        className={style.errorMessage}
+                                    >
+                                        * Это поле обязательно для заполнения
+                                    </p>
+                                )}
                             </div>
-                            <button className={style.button} type='submit'>SEND</button>
+                            <div className={style.mainInputArea}>
+                                <input
+                                    name='phone'
+                                    className={`${style.input} ${errors.phone ? style.errorInput : ""}`}
+                                    defaultValue='+996'
+                                    {...register("phone", {
+                                        required: true,
+                                        validate: validatePhoneNumber
+                                    })}
+                                    onInput={handlePhoneChange}
+                                />
+                                {errors.phone && (
+                                    <p className={style.errorMessage}
+                                    >
+                                        * Это поле обязательно для заполнения
+                                    </p>
+                                )}
+                            </div>
+
                         </div>
-                    </form>
+                        <button className={style.button} type='submit'>Регистрировать</button>
+                    </div>
+                </form>
             </div>
         </div>)
-    ;
+        ;
 };
 export default RegistrationModal;
