@@ -52,6 +52,73 @@ video{
     }
 }
 
+.geeksBlock {
+  margin: 40px auto 0 auto;
+  width: 600px;
+  background: linear-gradient(120deg, #232323 60%, #e6c800 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  padding: 40px 32px 32px 32px;
+  position: relative;
+  min-height: 300px;
+}
+.geeksLogoWrapper {
+  position: absolute;
+  left: -80px;
+  top: -60px;
+  z-index: 1;
+}
+.geeksLogoBg {
+  width: 160px;
+  height: 200px;
+  background: #232323;
+  opacity: 0.4;
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  border-radius: 16px;
+  transform: rotate(-15deg);
+}
+.geeksLogo {
+  width: 140px;
+  height: 180px;
+  background: #ffe600;
+  color: #232323;
+  font-size: 120px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+  transform: rotate(-15deg);
+  font-family: 'Montserrat', 'Arial', sans-serif;
+}
+.geeksTextBlock {
+  margin-left: 120px;
+  z-index: 3;
+  text-align: left;
+}
+.geeksTitle {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 18px;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  letter-spacing: 1px;
+}
+.geeksSubtitle {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.9;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
 @keyframes flicker {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.8; }

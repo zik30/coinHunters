@@ -5,11 +5,9 @@
     gap: 100px;
     font-size: 20px;
     .active {
-        height: 60px;
-        background-color: var(--main-color);
-        border: 1 px solid var(--accent-color);
-        color: var(--accent-color);
-        border-radius: var(--big-radius);
-        box-shadow: 0 0 10px var(--accent-color);
+        height:#0C0C0C;
+        background-color: #f3d409;
+        border: 1 px solid #f3d409;
+        color: #f3d409;
     }
 }

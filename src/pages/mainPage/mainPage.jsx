@@ -43,6 +43,18 @@ const MainPage = () => {
                     </div>
                 </main>
             </div>
+            <div className={styles.geeksBlock}>
+      <div className={styles.geeksLogoWrapper}>
+        <div className={styles.geeksLogoBg}></div>
+        <div className={styles.geeksLogo}>G</div>
+      </div>
+      <div className={styles.geeksTextBlock}>
+        <h3 className={styles.geeksTitle}>ОКУНИСЬ В УВЛЕКАТЕЛЬНУЮ АТМОСФЕРУ GEEKS</h3>
+        <p className={styles.geeksSubtitle}>
+          Выбери себе своего персонажа-учителя, открывай себе новые направления, начни понимать систему работы менторов
+        </p>
+      </div>
+    </div>
             <RegistrationModal modal={modal} onClose={onCloseModal}/>
         </div>
     </>
