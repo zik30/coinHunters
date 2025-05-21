@@ -6,13 +6,13 @@ import RegistrationModal from '../registrationPage/RegistrationPage.jsx';
 import Header from '../../components/header/Header.jsx';
 const MainPage = () => {
     const [modal, setModal] = useState(false)
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setModal(true);
-        }, 3000);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setModal(true);
+    //     }, 3000);
 
-        return () => clearTimeout(timer);
-    }, []);
+    //     return () => clearTimeout(timer);
+    // }, []);
 
     const onCloseModal = ()=>{
         setModal(false)
@@ -31,14 +31,14 @@ const MainPage = () => {
             <div className={styles.container}>
                 <main>
                     <h2>COINHUNTERS</h2>
-                    <p>Исследуй карту и открывай новые способности</p>
+                    <p>играй, собирай коины и развивай софт скиллы</p>
                     <div className={styles.buttons}>
                         <Link to="/game">
-                            <button>Играть</button>
+                            <button>play</button>
                         </Link>
-                        <Link to="#">
+                        {/* <Link to="#">
                             <Instruction />
-                        </Link>
+                        </Link> */}
 
                     </div>
                 </main>

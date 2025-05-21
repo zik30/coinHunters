@@ -1,0 +1,15 @@
+
+
+.list {
+    display: flex;
+    gap: 100px;
+    font-size: 20px;
+    .active {
+        height: 60px;
+        background-color: var(--main-color);
+        border: 1 px solid var(--accent-color);
+        color: var(--accent-color);
+        border-radius: var(--big-radius);
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+}
