@@ -6,6 +6,7 @@ import { room2 } from "./scenes/room2";
 import { makeNotificationBox } from "./ui/notificationBox";
 import { characterSelection } from "./scenes/characterSelection";
 import { directionSelector } from "./scenes/directionSelector";
+import style from './GamePage.module.scss'
 
 const Game = () => {
   const canvasRef = useRef(null);
@@ -67,7 +68,7 @@ const Game = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return <canvas className={style.game} ref={canvasRef} />;
 };
 
 export default Game;

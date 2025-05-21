@@ -11,8 +11,6 @@ import {
 
 export function room2(k, roomData, previousSceneData = { selectedCharacter: "player" }) {
   const { selectedCharacter } = previousSceneData;
-  console.log("Selected Character in Room 2:", selectedCharacter);
-  const healthBar = makeHealthBar(k);
   setBackgroundColor(k, "#a2aed5");
   k.camScale(4);
   k.camPos(170, 100);
@@ -23,8 +21,8 @@ export function room2(k, roomData, previousSceneData = { selectedCharacter: "pla
   const colliders = roomLayers[4].objects;
   setMapColliders(k, map, colliders);
 
-  const player = map.add(makePlayer(k, selectedCharacter));
-  player.setEvents();
+  const player = k.add(makePlayer(k, healthBar, selectedCharacter));
+
   setCameraControls(k, player, map, roomData);
 
   const positions = roomLayers[5].objects;

@@ -1,8 +1,9 @@
 import { state, statePropsEnum } from "../state/globalStateManager.js";
-import { makeHealthBar } from "../ui/healthBar.js";
+import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
 export function makePlayer(k, healthBar, spriteName = "player") {
+  const counter = makeCounter(k)
   return k.make([
     k.pos(),
     k.sprite(spriteName, { anim: "idle" }),
@@ -32,13 +33,13 @@ export function makePlayer(k, healthBar, spriteName = "player") {
 
         this.controlHandlers.push(
           k.onKeyPress((key) => {
-            if (key === "x") {
+            if (key === "space") {
               if (this.curAnim() !== "jump") this.play("jump");
               this.doubleJump();
             }
 
             if (
-              key === "z" &&
+              key === "x" &&
               this.curAnim() !== "attack" &&
               this.isGrounded()
             ) {
@@ -139,6 +140,11 @@ export function makePlayer(k, healthBar, spriteName = "player") {
           healthBar.trigger("update");
         });
 
+        this.on( "getCoin", (amount) =>{
+          state.set(statePropsEnum.coin, state.current().coin + amount);
+          counter.trigger("update"); 
+        })
+
         this.on("hurt", () => {
           makeBlink(k, this);
           if (this.hp() > 0) {
@@ -154,7 +160,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
 
         this.onAnimEnd((anim) => {
           if (anim === "explode") {
-            k.go("room1");
+            window.location.href = '/leaderboard'
           }
         });
       },

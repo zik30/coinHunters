@@ -1,10 +1,11 @@
-import { makeBoss } from "../entities/enemyBoss.js";
-import { makeDrone } from "../entities/enemyDrone.js";
-import { makeCartridge } from "../entities/healthCartridge.js";
-import { makePlayer } from "../entities/player.js";
-import { state } from "../state/globalStateManager.js";
-// import { makeCoin } from "../entities/coin.js";
-import { makeHealthBar } from "../ui/healthBar.js";
+import { makeBoss } from "../entities/enemyBoss";
+import { makeDrone } from "../entities/enemyDrone";
+import { makeCartridge } from "../entities/healthCartridge";
+import { makePlayer } from "../entities/player";
+import { state } from "../state/globalStateManager";
+import { makeHealthBar } from "../ui/healthBar";
+import { makeCoin } from "../entities/coin";
+
 
 import {
   setMapColliders,
@@ -13,7 +14,7 @@ import {
   setCameraZones,
   setExitZones,
 } from "./roomUtils.js";
-// import { counter } from "../ui/counter.js";
+import { makeCounter } from "../ui/coinCounter.js";
 
 export async function room1(
   k,
@@ -21,10 +22,10 @@ export async function room1(
   previousSceneData = { selectedCharacter: "player" }
 ) {
   const { selectedCharacter } = previousSceneData;
-
-  console.log("Selected Character in Room 1:", selectedCharacter);
-
   setBackgroundColor(k, "#a2aed5");
+
+  const healthBar = makeHealthBar(k)
+  const counter = makeCounter(k);
 
   k.camScale(4);
   k.camPos(170, 100);
@@ -37,7 +38,7 @@ export async function room1(
 
   setMapColliders(k, map, colliders);
 
-  const player = map.add(makePlayer(k, selectedCharacter));
+  const player = map.add(makePlayer(k, healthBar, selectedCharacter));
 
   setCameraControls(k, player, map, roomData);
 
@@ -98,8 +99,6 @@ export async function room1(
     if (position.type === "coin") {
       map.add(makeCoin(k, k.vec2(position.x, position.y)));
     }
-
-    
   }
 
   const cameras = roomLayers[6].objects;
@@ -108,8 +107,6 @@ export async function room1(
 
   const exits = roomLayers[7].objects;
   setExitZones(k, map, exits, "room2", { selectedCharacter });
-
-  const healthBar = makeHealthBar(k);
 
   healthBar.setEvents();
   healthBar.trigger("update");

@@ -118,6 +118,32 @@ export function loadAssets(k) {
     },
   });
 
+  k.loadSpriteAtlas("./assets/coin.png", {
+    coin: {
+      x: 125,
+      y: 145,
+      width: 134,
+      height: 16,
+      sliceX: 8,
+      anims: {
+        default: { from: 0, to: 3, loop: true, speed: 7 },
+      },
+    },
+  });
+
+  k.loadSpriteAtlas("./assets/coin.png", {
+    counter: {
+      x: 125,
+      y: 145,
+      width: 134,
+      height: 16,
+      sliceX: 8,
+      anims: {
+        default: { from: 0, to: 3, loop: true, speed: 7 },
+      },
+    },
+  });
+
   k.loadSprite("tileset", "./assets/tileset.png", {
     sliceX: 33,
     sliceY: 21,
@@ -129,8 +155,8 @@ export function loadAssets(k) {
   });
 
   k.loadSound("notify", "./assets/sounds/notify.mp3");
-  k.loadSound("boom", "./assets/sounds/boom.wav");
-  k.loadSound("health", "./assets/sounds/health.wav");
+  k.loadSound("boom", "./assets/sounds/Ahtung.m4a");
+  k.loadSound("health", "./assets/sounds/Aliluya.m4a");
   k.loadSound("flamethrower", "./assets/sounds/flamethrower.mp3");
 
   k.loadSprite("room1", "./maps/room1.png");
