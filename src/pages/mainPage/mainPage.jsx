@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import styles from './MainPage.module.scss'
 import Instruction from '../../components/instruction/Instruction.jsx';
 import Header from '../../components/header/Header.jsx';
+import Pedestal from "../leaderPage/ui/Pedestal.jsx";
+
 
 const MainPage = () => {
   return (

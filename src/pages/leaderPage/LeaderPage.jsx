@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styles from './LeaderPage.module.scss'
+import Pedestal from "./ui/Pedestal.jsx";
 
 
 
@@ -33,7 +34,7 @@ function Leader() {
             const response = await fetch(`${MOCK_API_URL}`);
             const result = await response.json();
             const data = result.filter(user => user.phone === phone.toString());
-            console.log(data)
+
             if (data.length > 0) {
                 const userId = data[0].id;
                 const updateResponse = await fetch(`${MOCK_API_URL}/${userId}`, {
@@ -63,6 +64,7 @@ function Leader() {
     const coin = localStorage.getItem("coin")
     const phone = localStorage.getItem("phone");
     const name = localStorage.getItem("name");
+
     useEffect(()=>{
         updateUser(name,phone,coin ?? 0)
     },[coin])
@@ -71,10 +73,8 @@ function Leader() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <div className={styles.text}>
-                    <h2 className={styles.title}>Leader Bord</h2>
-                    <h2 className={styles.p}>Посмотри на результаты</h2>
-                </div>
+
+                {players.length >= 3 && <Pedestal data={players.slice(0,3)}/>}
                 <table>
                     <thead>
                     {/* <div> */}
@@ -92,7 +92,8 @@ function Leader() {
                     <tbody>
                     {
                       players &&  players.map((player, i) => (
-                            <tr key={i} className={styles.tableRow}>
+                            <tr key={i} className={`${styles.tableRow} ${player.phone === phone ? styles.highlightedRow : ''}`}
+                            >
                                 <td>{i + 1}</td>
                                 <td>{player.name}</td>
                                 <td>{player.coin}</td>

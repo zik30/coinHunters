@@ -1,7 +1,9 @@
-
+body{
+}
 .wrapper{
     background-color: #111111;
     min-height: 100vh;
+
     .container{
         width: 1200px;
         margin: 0 auto;
@@ -60,11 +62,11 @@
                     &:nth-child(odd){
                         background-color: #222122;
                     }
-                    &:hover{
-                        background-color: #d8fa00;
-                        color: #222122;
-                        scale: 1.05;
-                    }
+                }
+                .highlightedRow{
+                    background-color: #d8fa00 !important;
+                    color: #222122;
+                    scale: 1.05;
                 }
                 
             }
