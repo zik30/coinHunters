@@ -1,9 +1,7 @@
-body{
-}
+
 .wrapper{
     background-color: #111111;
     min-height: 100vh;
-
     .container{
         width: 1200px;
         margin: 0 auto;
@@ -30,10 +28,9 @@ body{
             width: 600px;
             margin: 20px auto;
             padding: 10px;
-            // background-color: #222122;
             text-align: center;
             color: #222122;
-            border-spacing: 0 20px; /* горизонталь 0, вертикаль 20px */
+            border-spacing: 0 20px;
             border-collapse: separate; 
             
             thead{
@@ -62,6 +59,7 @@ body{
                     &:nth-child(odd){
                         background-color: #222122;
                     }
+
                 }
                 .highlightedRow{
                     background-color: #d8fa00 !important;
@@ -72,4 +70,6 @@ body{
             }
         }
     }
+
 }
+

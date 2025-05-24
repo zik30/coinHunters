@@ -4,6 +4,7 @@ import Pedestal from "./ui/Pedestal.jsx";
 
 
 
+
 const columns = [
     {
         title: '№',
@@ -65,8 +66,10 @@ function Leader() {
     const phone = localStorage.getItem("phone");
     const name = localStorage.getItem("name");
 
+
     useEffect(()=>{
         updateUser(name,phone,coin ?? 0)
+
     },[coin])
 
 
@@ -74,7 +77,9 @@ function Leader() {
         <div className={styles.wrapper}>
             <div className={styles.container}>
 
+
                 {players.length >= 3 && <Pedestal data={players.slice(0,3)}/>}
+
                 <table>
                     <thead>
                     {/* <div> */}
@@ -94,6 +99,7 @@ function Leader() {
                       players &&  players.map((player, i) => (
                             <tr key={i} className={`${styles.tableRow} ${player.phone === phone ? styles.highlightedRow : ''}`}
                             >
+
                                 <td>{i + 1}</td>
                                 <td>{player.name}</td>
                                 <td>{player.coin}</td>

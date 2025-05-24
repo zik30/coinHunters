@@ -24,6 +24,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    font-size: 25px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &First{
       position: absolute;
       order: -1;
@@ -33,7 +37,6 @@
       height: 500px;
       border-radius: 8px;
       font-weight: 400;
-      font-size: 40px;
       text-align: center;
       background: #FFE743;
     }
@@ -48,7 +51,6 @@
       height: 300px;
       border-radius: 8px;
       font-weight: 400;
-      font-size: 40px;
       text-align: center;
     }
     &Second {

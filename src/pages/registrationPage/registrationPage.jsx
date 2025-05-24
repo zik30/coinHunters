@@ -18,13 +18,16 @@ const RegistrationModal = () => {
     }, []);
 
 
+
     const {
         register,
         handleSubmit,
         reset,
         setValue,
+
         formState: {errors}
     } = useForm({mode: "all"});
+
 
     const checkUserExists = async (phone) => {
         try {
@@ -32,13 +35,16 @@ const RegistrationModal = () => {
             const result = await response.json();
             const userExists = result.some(user => user.phone === phone);
             console.log("Пользователь найден:", userExists);
+
             return userExists;
         } catch (error) {
             console.error("Ошибка при проверке регистрации:", error);
             setMessage("error")
+
             return false;
         }
     };
+
 
     const sendToMockApi = async (name, phone) => {
         try {
@@ -64,9 +70,9 @@ const RegistrationModal = () => {
         } catch (error) {
             console.error("Ошибка:", error);
             setMessage("error");
+
         }
     };
-
 
     const checkName = value => {
         return regExpName.test(value);
@@ -89,6 +95,7 @@ const RegistrationModal = () => {
         return isValid;
     };
 
+
     const navigate = useNavigate()
     useEffect(() => {
         console.log(message)
@@ -98,6 +105,7 @@ const RegistrationModal = () => {
     }, [message]);
 
 
+
     const formatPhoneNumber = value => {
         let cleanedNumber = value.replace(/[^\d+]/g, "").replace(/(?!^\+)\+/g, "");
         if (cleanedNumber.startsWith("0")) {
@@ -105,6 +113,7 @@ const RegistrationModal = () => {
         }
         return cleanedNumber;
     };
+
 
     const onSubmit = async (data) => {
         try {
@@ -186,5 +195,6 @@ const RegistrationModal = () => {
             </div>
         </div>)
         ;
+
 };
 export default RegistrationModal;
