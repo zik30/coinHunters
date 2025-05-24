@@ -23,7 +23,7 @@ const Pedestal = ({data}) => {
                    <div className={styles.leaderboardPlayersFirst}>
                        {data[0] && (
                            <>
-                               <h4>{data[0].name}</h4>
+                               <div className={styles.leaderboardPlayersHeader}><h4>{data[0].name}</h4></div>
                                <h4>{data[0].coin}</h4>
                            </>
                        )}
