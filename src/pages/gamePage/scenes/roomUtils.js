@@ -125,6 +125,85 @@ export function setMapColliders(k, map, colliders) {
   }
 }
 
+function showTip(k, message) {
+  k.add([
+    k.rect(k.width(), 90),
+    k.pos(0, 0),
+    k.color(k.Color.fromHex("#ffc400")),
+    k.outline(4, rgb(255,255,255)),
+    k.z(100),
+    k.fixed(),
+    "popup"
+  ]);
+  k.add([
+    k.text(message, { size: 20, align: 'center', font: "glyphmesss, sans-serif" }),
+    k.pos( 50, 15),
+    k.fixed(),
+    k.z(101),
+    k.color(k.Color.fromHex("#09142c")),
+    "popup"
+  ]);
+}
+
+export function setTipsRtigger(k, map, triggers){
+  let jumpTriggered = false
+  let attackTriggered = false
+  let isWindowOpen = false
+
+  for( const trigger of triggers){
+    if( trigger.name === 'jump'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "jump-tip"
+      ])
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !jumpTriggered){
+          isWindowOpen = true
+          jumpTriggered = true
+          showTip(k, "Нажмите \"SPACE\" чтобы прыгать!")
+        }
+      })
+      k.onKeyPress("space", () => {
+          if (isWindowOpen) {
+            k.destroyAll("popup")
+            isWindowOpen = false
+        }
+      })
+    }
+    if( trigger.name === 'attack'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "attack-tip"
+      ])
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !attackTriggered){
+          isWindowOpen = true
+          attackTriggered = true
+          showTip(k, "Нажмите \"Z\" чтобы атаковать!")
+        }
+      })
+      k.onKeyPress("z", () => {
+          if (isWindowOpen) {
+            k.destroyAll("popup")
+            isWindowOpen = false
+        }
+      })
+    }
+  }
+}
+
 export function setCameraControls(k, player, map, roomData) {
   k.onUpdate(() => {
     if (state.current().playerInBossFight) return;

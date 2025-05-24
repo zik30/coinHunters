@@ -21,7 +21,7 @@ export function room2(k, roomData, previousSceneData = { selectedCharacter: "pla
   const roomLayers = roomData.layers;
   const map = k.add([k.pos(0, 0), k.sprite("room2")]);
 
-  const colliders = roomLayers[4].objects;
+  const colliders = roomLayers[1].objects;
   setMapColliders(k, map, colliders);
 
   const player = k.add(makePlayer(k, healthBar, selectedCharacter));

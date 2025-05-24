@@ -1,13 +1,33 @@
 
 .wrapper{
-    background-color: #111111;
+    background-color: black;
     min-height: 100vh;
     .container{
         width: 1200px;
         margin: 0 auto;
         padding: 50px 0;
+
+        .player{
+            h3{
+                font-family: sans-serif;
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            .playerRes{
+                border-radius: 8px;
+                padding: 5px 43px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #FFEC6A;
+                .name{
+                    font-size: 24px;
+                }
+            }
+            margin-bottom: 50px;
+            margin-top: 100px;
+        }
         .text{
-            width: 500px;
             margin: 0 auto;
             text-align: center;
             .title{
@@ -15,7 +35,6 @@
                 font-family: 'Press Start 2P', sans-serif;
                 color: #ffe743;
                 padding: 10px;
-                background-color: #222122;
                 margin: 0;
             }
             .p{

@@ -18,7 +18,7 @@ const Game = () => {
     loadAssets(k);
 
     async function main() {
-      const room1Data = await (await fetch("/maps/room1.json")).json();
+      const room1Data = await (await fetch("/maps/room1.tmj")).json();
       const room2Data = await (await fetch("/maps/room2.json")).json();
 
       k.scene("room1", (previousSceneData) => {

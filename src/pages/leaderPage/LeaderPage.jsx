@@ -33,7 +33,6 @@ function Leader() {
             const response = await fetch(`${MOCK_API_URL}`);
             const result = await response.json();
             const data = result.filter(user => user.phone === phone.toString());
-            console.log(data)
             if (data.length > 0) {
                 const userId = data[0].id;
                 const updateResponse = await fetch(`${MOCK_API_URL}/${userId}`, {
@@ -71,9 +70,17 @@ function Leader() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
+                <div className={styles.player}>
+                    <h3>Твой результат: </h3>
+                    <div className={styles.playerRes}>
+                        <h3></h3>
+                        <h3 className={styles.name}>{name}</h3>
+                        <h3>{coin}</h3>
+                    </div>
+                </div>
                 <div className={styles.text}>
-                    <h2 className={styles.title}>Leader Bord</h2>
-                    <h2 className={styles.p}>Посмотри на результаты</h2>
+                    <h2 className={styles.title}>Leaderboard</h2>
+                    <h2 className={styles.p}>Доска почета!</h2>
                 </div>
                 <table>
                     <thead>
