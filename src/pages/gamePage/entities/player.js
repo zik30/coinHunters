@@ -39,7 +39,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
             }
 
             if (
-              key === "x" &&
+              key === "z" &&
               this.curAnim() !== "attack" &&
               this.isGrounded()
             ) {

@@ -4,6 +4,7 @@ import styles from './MainPage.module.scss'
 import Instruction from '../../components/instruction/Instruction.jsx';
 import RegistrationModal from '../registrationPage/RegistrationPage.jsx';
 import Header from '../../components/header/Header.jsx';
+import CharactersSlider from '../../components/charactersSlider/CharactersSlider.jsx';
 const MainPage = () => {
     const [modal, setModal] = useState(false)
     // useEffect(() => {
@@ -19,44 +20,36 @@ const MainPage = () => {
     }
   return (
     <>
-    <div className={styles.videoWrapper}>
-{/* 
-    <video autoPlay loop muted className={styles.video}>
-        <source src="./images/video.mp4" type="video/mp4"/>
-        Your browser does not support the video tag.
-    </video> */}
-    </div>
-     <div className={styles.bgc}>
+       <div className={styles.headerFixed}>
             <Header/>
-            <div className={styles.container}>
-                <main>
-                    <h2>COINHUNTERS</h2>
-                    <p>играй, собирай коины и развивай софт скиллы</p>
-                    <div className={styles.buttons}>
-                        <Link to="/game">
-                            <button>play</button>
-                        </Link>
-                        {/* <Link to="#">
-                            <Instruction />
-                        </Link> */}
-
-                    </div>
-                </main>
-            </div>
-            <div className={styles.geeksBlock}>
-      <div className={styles.geeksLogoWrapper}>
-        <div className={styles.geeksLogoBg}></div>
-        <div className={styles.geeksLogo}>G</div>
-      </div>
-      <div className={styles.geeksTextBlock}>
-        <h3 className={styles.geeksTitle}>ОКУНИСЬ В УВЛЕКАТЕЛЬНУЮ АТМОСФЕРУ GEEKS</h3>
-        <p className={styles.geeksSubtitle}>
-          Выбери себе своего персонажа-учителя, открывай себе новые направления, начни понимать систему работы менторов
-        </p>
-      </div>
-    </div>
-            <RegistrationModal modal={modal} onClose={onCloseModal}/>
         </div>
+            <section className={styles.heroSection}>
+                <div className={styles.heroBg}>
+                    {/* Можно добавить <video> или <img> для фона, если нужно */}
+                </div>
+                <div className={styles.heroContent}>
+                    <h1 className={styles.heroTitle}>CoinHunters</h1>
+                    <p className={styles.heroSubtitle}>играй, собирай коины и развивай софт скиллы</p>
+                    <button className={styles.heroBtn}>
+                        <Link to="/game" className={styles.heroBtn}>Играть</Link>
+                    </button>
+                </div>
+            </section>
+            <section className={styles.sliderSection}>
+                <h2 className={styles.sliderTitle}>Geeks персонажи</h2>
+                <p className={styles.sliderSubtitle}>персонажами являются реальные преподаватели/менторы GeeksAcademy</p>
+                <CharactersSlider />
+            </section>
+            <section className={styles.instructionSection}>
+                <h2 className={styles.instructionTitle}>Управление</h2>
+                <Instruction />
+            </section>
+            <footer>
+                <p>made by css Ninjas</p>
+            </footer>
+            <RegistrationModal modal={modal} onClose={onCloseModal}/>
+        
+        
     </>
   )
 }

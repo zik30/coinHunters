@@ -9,12 +9,9 @@ const Header = () => {
           <h1>CH</h1>
             <ul className={styles.list}>
               <li className={styles.active}>
-                <Link to='/leader'>
+                <Link to='/leader' className={styles.liActive}>
                     leaderBoard
                 </Link>
-              </li>
-              <li>
-                <Link to='/regis'>Регистрация</Link>
               </li>
             </ul>
         

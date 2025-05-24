@@ -6,8 +6,12 @@
     font-size: 20px;
     .active {
         height:#0C0C0C;
-        background-color: #f3d409;
-        border: 1 px solid #f3d409;
-        color: #f3d409;
+   
+       
+       .liActive {
+        font-size: 20px;
+        color: #fff;
+        text-transform: capitalize;
+       }
     }
 }
