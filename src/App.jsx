@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route path='/' element={<MainPage/>}/>
       <Route path='/game' element={<GamePage/>}/>
-      <Route path='/leader' element={<Leader/>}/>
+      <Route path='/leaderboard' element={<Leader/>}/>
       <Route path='/registration' element={<RegistrationModal/>}/>
     </Routes>
   )

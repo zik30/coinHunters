@@ -33,10 +33,14 @@ const Game = () => {
         k.add(
           makeNotificationBox(
             k,
-            "You escaped the factory!\n The End. Thanks for playing!"
+            "You escaped the factory!\n The End. Thanks for playing!\n\nPress ENTER to go\n to the leaderboard."
           )
         );
+        k.onKeyPress((enter)=>{
+          window.location.href = "/leaderboard";
+        })
       });
+
     }
 
     k.scene("characterSelection", characterSelection);
