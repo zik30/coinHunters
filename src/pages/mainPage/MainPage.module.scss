@@ -149,7 +149,12 @@
     50% { opacity: 0.8; }
 }
 
-
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .Slider {
   position: relative;
@@ -210,4 +215,12 @@ footer {
     justify-content: center;
     align-items: center;
     color: #000;
+}
+
+.heroSection,
+.geeksBlockSection,
+.sliderSection,
+html, body, #root {
+  max-width: 100vw;
+  overflow-x: hidden;
 }

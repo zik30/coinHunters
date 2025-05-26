@@ -30,9 +30,9 @@ const MainPage = () => {
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>CoinHunters</h1>
                     <p className={styles.heroSubtitle}>играй, собирай коины и развивай софт скиллы</p>
-                    <button className={styles.heroBtn}>
+                    
                         <Link to="/game" className={styles.heroBtn}>Играть</Link>
-                    </button>
+                   
                 </div>
             </section>
             <section className={styles.sliderSection}>
