@@ -1,7 +1,22 @@
 
+
 .wrapper{
     background-color: #111111;
     min-height: 100vh;
+    .leaderboardTextBlock{
+    width: 1200px;
+    margin: 20px auto 50px;
+    h4{
+      font-weight: 500;
+      font-size: 50px;
+      text-align: center;
+    }
+    p{
+        text-align: center;
+      font-weight: 400;
+      font-size: 32px;
+    }
+  }
     .container{
         width: 1200px;
         margin: 0 auto;
@@ -28,10 +43,9 @@
             width: 600px;
             margin: 20px auto;
             padding: 10px;
-            // background-color: #222122;
             text-align: center;
             color: #222122;
-            border-spacing: 0 20px; /* горизонталь 0, вертикаль 20px */
+            border-spacing: 0 20px;
             border-collapse: separate; 
             
             thead{
@@ -60,14 +74,16 @@
                     &:nth-child(odd){
                         background-color: #222122;
                     }
-                    &:hover{
-                        background-color: #d8fa00;
-                        color: #222122;
-                        scale: 1.05;
-                    }
+
+                }
+                .highlightedRow{
+                    background-color: #d8fa00 !important;
+                    color: #222122;
+                    scale: 1.05;
                 }
                 
             }
         }
     }
+
 }
