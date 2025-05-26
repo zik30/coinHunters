@@ -1,0 +1,17 @@
+
+
+.list {
+    display: flex;
+    gap: 100px;
+    font-size: 20px;
+    .active {
+        height:#0C0C0C;
+   
+       
+       .liActive {
+        font-size: 20px;
+        color: #fff;
+        text-transform: capitalize;
+       }
+    }
+}

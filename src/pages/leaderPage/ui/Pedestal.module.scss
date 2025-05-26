@@ -1,0 +1,72 @@
+
+.leaderboard{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 53px;
+  text-align: center;
+  &TextBlock{
+    width: 1200px;
+    h4{
+      font-weight: 500;
+      font-size: 50px;
+      text-align: center;
+      width: 90%;
+      margin: auto 0;
+    }
+    p{
+      font-weight: 400;
+      font-size: 32px;
+    }
+  }
+
+  &Players{
+    color: black;
+    position: relative;
+    height: 500px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 40px;
+    &Header{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+    &First{
+      position: absolute;
+      order: -1;
+      top: 0;
+      left: calc(50% - 150px);
+      width: 300px;
+      height: 500px;
+      border-radius: 8px;
+      font-weight: 400;
+      text-align: center;
+      background: #FFE743;
+    }
+    &Second,&Third,&First{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    &Second,&Third{
+      width: 250px;
+      height: 300px;
+      border-radius: 8px;
+      font-weight: 400;
+      text-align: center;
+      font-size: 30px;
+    }
+    &Second {
+      background: #FEF3A7;
+
+    }
+    &Third{
+      background: #D9D9D9;
+    }
+  }
+}

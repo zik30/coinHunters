@@ -1,4 +1,5 @@
 import { state, statePropsEnum } from "../state/globalStateManager.js";
+import { makeNotificationBox } from "../ui/notificationBox.js";
 
 export function setBackgroundColor(k, hexColorCode) {
   k.add([
@@ -122,6 +123,71 @@ export function setMapColliders(k, map, colliders) {
       "collider",
       collider.type,
     ]);
+  }
+}
+
+
+export function setTipsRtigger(k, map, triggers){
+  let jumpTriggered = false
+  let attackTriggered = false
+  let isWindowOpen = false
+
+  for( const trigger of triggers){
+    if( trigger.name === 'jump'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "jump-tip"
+      ])
+      let box
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !jumpTriggered){
+          isWindowOpen = true
+          jumpTriggered = true
+          box = k.add(makeNotificationBox(k, 'press \'space\'\n to attack'))
+        }
+      })
+      k.onKeyPress("space", () => {
+          if (isWindowOpen && box) {
+            box.close()
+            box=null
+            isWindowOpen = false
+        }
+      })
+    }
+    if( trigger.name === 'attack'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "attack-tip"
+      ])
+      let box
+      k.play("notify")
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !attackTriggered){
+          isWindowOpen = true
+          attackTriggered = true
+          box = k.add(makeNotificationBox(k, 'press \'Z\'\n to attack'))
+        }
+      })
+      k.onKeyPress("z", () => {
+          if (isWindowOpen && box) {
+            box.close()
+            box=null
+            isWindowOpen = false
+        }
+      })
+    }
   }
 }
 

@@ -3,7 +3,7 @@ import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
 export function makePlayer(k, healthBar, spriteName = "player") {
-  const counter = makeCounter(k)
+  const counter = makeCounter(k);
   return k.make([
     k.pos(),
     k.sprite(spriteName, { anim: "idle" }),
@@ -31,9 +31,10 @@ export function makePlayer(k, healthBar, spriteName = "player") {
       setControls() {
         this.controlHandlers = [];
 
+
         this.controlHandlers.push(
           k.onKeyPress((key) => {
-            if (key === "x") {
+            if (key === "space") {
               if (this.curAnim() !== "jump") this.play("jump");
               this.doubleJump();
             }
@@ -41,7 +42,8 @@ export function makePlayer(k, healthBar, spriteName = "player") {
             if (
               key === "z" &&
               this.curAnim() !== "attack" &&
-              this.isGrounded()
+              this.isGrounded() &&
+              !state.current().pause
             ) {
               this.isAttacking = true;
               this.add([
@@ -67,7 +69,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
 
         this.controlHandlers.push(
           k.onKeyDown((key) => {
-            if (key === "left" && !this.isAttacking) {
+            if (key === "left" && !this.isAttacking && !state.current().pause) {
               if (this.curAnim() !== "run" && this.isGrounded()) {
                 this.play("run");
               }
@@ -76,7 +78,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
               return;
             }
 
-            if (key === "right" && !this.isAttacking) {
+            if (key === "right" && !this.isAttacking && !state.current().pause) {
               if (this.curAnim() !== "run" && this.isGrounded()) {
                 this.play("run");
               }
@@ -140,10 +142,10 @@ export function makePlayer(k, healthBar, spriteName = "player") {
           healthBar.trigger("update");
         });
 
-        this.on( "getCoin", (amount) =>{
+        this.on("getCoin", (amount) => {
           state.set(statePropsEnum.coin, state.current().coin + amount);
-          counter.trigger("update"); 
-        })
+          counter.trigger("update");
+        });
 
         this.on("hurt", () => {
           makeBlink(k, this);
@@ -160,7 +162,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
 
         this.onAnimEnd((anim) => {
           if (anim === "explode") {
-            window.location.href = '/leaderboard'
+            window.location.href = "/leaderboard";
           }
         });
       },
