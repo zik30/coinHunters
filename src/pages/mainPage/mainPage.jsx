@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './MainPage.module.scss'
 import Instruction from '../../components/instruction/Instruction.jsx';
-import RegistrationModal from '../registrationPage/RegistrationPage.jsx';
 import Header from '../../components/header/Header.jsx';
 import CharactersSlider from '../../components/charactersSlider/CharactersSlider.jsx';
+import RegistrationModal from '../registrationPage/registrationPage.jsx';
 const MainPage = () => {
-    const [modal, setModal] = useState(false)
     // useEffect(() => {
     //     const timer = setTimeout(() => {
     //         setModal(true);
@@ -15,9 +15,6 @@ const MainPage = () => {
     //     return () => clearTimeout(timer);
     // }, []);
 
-    const onCloseModal = ()=>{
-        setModal(false)
-    }
   return (
     <>
        <div className={styles.headerFixed}>
@@ -31,7 +28,7 @@ const MainPage = () => {
                     <h1 className={styles.heroTitle}>CoinHunters</h1>
                     <p className={styles.heroSubtitle}>играй, собирай коины и развивай софт скиллы</p>
                     
-                        <Link to="/game" className={styles.heroBtn}>Играть</Link>
+                        <Link to="/registration" className={styles.heroBtn}>Играть</Link>
                    
                 </div>
             </section>
@@ -46,9 +43,7 @@ const MainPage = () => {
             </section>
             <footer>
                 <p>made by css Ninjas</p>
-            </footer>
-            <RegistrationModal modal={modal} onClose={onCloseModal}/>
-        
+            </footer>        
         
     </>
   )

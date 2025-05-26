@@ -11,7 +11,8 @@ export default defineConfig({
       '@components': '/src/components',
       '@assets': '/src/assets',
       '@api': '/src/api',
-      '@store': '/src/store'
+      '@store': '/src/store',
+      '@shared': '/src/shared'
     }
   },
   css: {

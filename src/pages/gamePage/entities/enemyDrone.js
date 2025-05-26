@@ -1,3 +1,5 @@
+import { state } from "../state/globalStateManager";
+
 export function makeDrone(k, initialPos) {
   return k.make([
     k.pos(initialPos),
@@ -42,7 +44,7 @@ export function makeDrone(k, initialPos) {
         });
 
         this.onStateUpdate("patrol-left", () => {
-          if (this.pos.dist(player.pos) < this.range) {
+          if (this.pos.dist(player.pos) < this.range && !state.current().pause) {
             this.enterState("alert");
             return;
           }
