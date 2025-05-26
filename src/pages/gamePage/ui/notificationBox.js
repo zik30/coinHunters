@@ -1,4 +1,9 @@
+import { state, statePropsEnum } from "../state/globalStateManager";
+
 export function makeNotificationBox(k, content) {
+  state.set(statePropsEnum.pause, true)
+  console.log(state.current().pause);
+  
   const container = k.make([
     k.rect(480, 100),
     k.color(k.Color.fromHex("#20214a")),
@@ -8,7 +13,9 @@ export function makeNotificationBox(k, content) {
     k.anchor("center"),
     {
       close() {
+        state.set(statePropsEnum.pause, false)
         k.destroy(this);
+        console.log(state.current().pause);
       },
     },
   ]);

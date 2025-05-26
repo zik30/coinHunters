@@ -27,7 +27,7 @@ export function makeBoss(k, initialPos) {
         const player = k.get("player", { recursive: true })[0];
 
         this.onStateUpdate("idle", () => {
-          if (state.current().playerInBossFight) {
+          if (state.current().playerInBossFight && !state.current().pause){
             this.enterState("follow");
           }
         });
@@ -41,7 +41,7 @@ export function makeBoss(k, initialPos) {
             this.pursuitSpeed
           );
 
-          if (this.pos.dist(player.pos) < this.fireRange) {
+          if (this.pos.dist(player.pos) < this.fireRange && !state.current().pause) {
             this.enterState("open-fire");
           }
         });

@@ -114,7 +114,6 @@ export async function room1(
   }
 
   const cameras = roomLayers[5].objects;
-
   setCameraZones(k, map, cameras);
 
   const exits = roomLayers[4].objects;

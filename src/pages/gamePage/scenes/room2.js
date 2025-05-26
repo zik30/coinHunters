@@ -1,6 +1,11 @@
+import { makeCoin } from "../entities/coin.js";
+import { makeBoss } from "../entities/enemyBoss.js";
+import { makeDrone } from "../entities/enemyDrone.js";
 import { makeCartridge } from "../entities/healthCartridge.js";
 import { makePlayer } from "../entities/player.js";
-import {  makeHealthBar } from "../ui/healthBar.js";
+import { state } from "../state/globalStateManager.js";
+import { makeCounter } from "../ui/coinCounter.js";
+import { makeHealthBar } from "../ui/healthBar.js";
 import {
   setBackgroundColor,
   setMapColliders,
@@ -9,10 +14,16 @@ import {
   setCameraControls,
 } from "./roomUtils.js";
 
-export function room2(k, roomData, previousSceneData = { selectedCharacter: "player" }) {
+export function room2(
+  k,
+  roomData,
+  previousSceneData = { selectedCharacter: "player" }
+) {
   const { selectedCharacter } = previousSceneData;
-  setBackgroundColor(k, "#a2aed5");
-  const healthBar = makeHealthBar(k)
+  setBackgroundColor(k, "#cdc3a8");
+
+  const healthBar = makeHealthBar(k);
+  const counter = makeCounter(k);
 
   k.camScale(4);
   k.camPos(170, 100);
@@ -28,7 +39,7 @@ export function room2(k, roomData, previousSceneData = { selectedCharacter: "pla
 
   setCameraControls(k, player, map, roomData);
 
-  const positions = roomLayers[5].objects;
+  const positions = roomLayers[2].objects;
   for (const position of positions) {
     if (
       position.name === "entrance-1" &&
@@ -57,16 +68,37 @@ export function room2(k, roomData, previousSceneData = { selectedCharacter: "pla
     if (position.type === "cartridge") {
       map.add(makeCartridge(k, k.vec2(position.x, position.y)));
     }
+
+    if (position.type === "coin") {
+      map.add(makeCoin(k, k.vec2(position.x, position.y)));
+    }
+
+    if (position.type === "drone") {
+      const drone = map.add(makeDrone(k, k.vec2(position.x, position.y)));
+      drone.setBehavior();
+      drone.setEvents();
+      continue;
+    }
+
+    if (position.name === "boss" && !state.current().isBossDefeated) {
+      const boss = map.add(makeBoss(k, k.vec2(position.x, position.y)));
+      boss.setBehavior();
+      boss.setEvents();
+    }
   }
 
-  const cameras = roomLayers[6].objects;
+  const cameras = roomLayers[3].objects;
 
   setCameraZones(k, map, cameras);
 
-  const exits = roomLayers[7].objects;
+  const exits = roomLayers[4].objects;
   setExitZones(k, map, exits, "room1");
 
   healthBar.setEvents();
   healthBar.trigger("update");
   k.add(healthBar);
+
+  counter.setEvents();
+  counter.trigger("update");
+  k.add(counter);
 }

@@ -1,18 +1,22 @@
 import style from "./RegistrationPage.module.scss";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import closeIcon from "/icons/x.svg";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
+import {useNavigate} from "react-router-dom";
+import DoneModal from "../../shared/doneModal/DoneModal.jsx";
 
 
-const RegistrationModal = ({ modal,onClose}) => {
+const RegistrationModal = () => {
+    const [message, setMessage] = useState(null)
     const regExpName = /([а-яА-ЯёЁ]|[a-zA-Z]){2}/;
     useEffect(() => {
-        document.body.style.overflow = modal  ? "hidden" : "scroll";
+        document.body.style.overflow = "hidden";
         return () => {
             document.body.style.overflow = "";
         };
-    }, [modal]);
+    }, []);
+
 
 
     const {
@@ -20,31 +24,11 @@ const RegistrationModal = ({ modal,onClose}) => {
         handleSubmit,
         reset,
         setValue,
-        formState: { errors }
-    } = useForm({ mode: "all" });
-    const sendToBitrix = async (name, phone) => {
-        const url = "https://geektech.bitrix24.ru/rest/1/e08w1jvst0jj152c/crm.lead.add.json";
-        const data = {
-            fields: {
-                SOURCE_ID: 127,
-                NAME: name,
-                TITLE: "GEEKS GAME: Хакатон 2025",
-                PHONE: [{ VALUE: phone, VALUE_TYPE: "WORK" }]
-            }
-        };
 
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-            const result = await response.json();
-            console.log("Bitrix24 Ответ:", result);
-        } catch (error) {
-            console.error("Ошибка при отправке в Bitrix24:", error);
-        }
-    };
+        formState: {errors}
+    } = useForm({mode: "all"});
+
+
     const checkUserExists = async (phone) => {
         try {
             const response = await fetch("https://66a8b255e40d3aa6ff5902eb.mockapi.io/players");
@@ -55,37 +39,40 @@ const RegistrationModal = ({ modal,onClose}) => {
             return userExists;
         } catch (error) {
             console.error("Ошибка при проверке регистрации:", error);
+            setMessage("error")
+
             return false;
         }
     };
 
-    const sendToMockApi = async (name,phone) => {
-        const userExists = await checkUserExists(phone);
-        if (userExists) {
-            alert("Вы уже зарегистрированы!");
-            return;
-        }
-        const url = "https://66a8b255e40d3aa6ff5902eb.mockapi.io/players";
-        const data = {
-            name: name,
-            id: nanoid(),
-            phone:phone
-        };
 
+    const sendToMockApi = async (name, phone) => {
         try {
+            const userExists = await checkUserExists(phone);
+            if (userExists) {
+                setMessage("success");
+                return;
+            }
+            const url = "https://66a8b255e40d3aa6ff5902eb.mockapi.io/players";
+            const data = {name, id: nanoid(), phone};
+
             const response = await fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
             });
-            const result = await response.json();
 
+            if (response.ok) {
+                setMessage("success");
+            } else {
+                throw new Error("Ошибка при отправке данных");
+            }
         } catch (error) {
-            console.error("Ошибка при отправке в Bitrix24:", error);
+            console.error("Ошибка:", error);
+            setMessage("error");
+
         }
     };
-
-
 
     const checkName = value => {
         return regExpName.test(value);
@@ -107,7 +94,17 @@ const RegistrationModal = ({ modal,onClose}) => {
         const isValid = regExpNumber.test(cleanedNumber);
         return isValid;
     };
-    
+
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        console.log(message)
+        if (message === "success") {
+            setTimeout(() => navigate("/game"), 2000);
+        }
+    }, [message]);
+
+
 
     const formatPhoneNumber = value => {
         let cleanedNumber = value.replace(/[^\d+]/g, "").replace(/(?!^\+)\+/g, "");
@@ -116,72 +113,88 @@ const RegistrationModal = ({ modal,onClose}) => {
         }
         return cleanedNumber;
     };
-    const onSubmit = (data) => {
-        const formattedPhone = formatPhoneNumber(data.phone);
-        sendToBitrix(data.name, formattedPhone);
-        sendToMockApi(data.name,formattedPhone)
-        localStorage.setItem("phone",data.phone)
-        localStorage.setItem("name",data.name)
-        reset();
-        document.body.style.overflow = "scroll";
+
+
+    const onSubmit = async (data) => {
+        try {
+            setMessage(null);
+            const formattedPhone = formatPhoneNumber(data.phone);
+            await sendToMockApi(data.name, formattedPhone);
+
+            localStorage.setItem("phone", data.phone);
+            localStorage.setItem("name", data.name);
+
+            reset();
+            document.body.style.overflow = "scroll";
+        } catch (error) {
+            console.error("Ошибка в процессе отправки:", error);
+            setMessage("error");
+        }
     };
+    const onClose = () => {
+        navigate("/")
+    }
 
 
-
-    return modal ? (
+    return (
         <div className={style.modalOverlay}>
             <div className={style.modal}>
                 <button className={style.closeButton} onClick={onClose}>
-                    <img src={closeIcon} alt='' />
+                    <img src={closeIcon} alt=''/>
                 </button>
-                    <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
-                        <p className={style.message}>Пройдите регистрацию</p>
-                        <div className={style.inputAreaItself}>
-                            <div className={style.wrapper}>
-                                <div className={style.inputArea}>
-                                    <input
-                                        name='name'
-                                        placeholder='Ваше ФИО'
-                                        className={`${style.input} ${errors.name ? style.errorInput : ""}`}
-                                        maxLength={50}
-                                        {...register("name", {
-                                            required: true,
-                                            validate: checkName
-                                        })}
-                                    />
-                                    {errors.name && (
-                                        <p
-                                            className={style.errorMessage}
-                                        >
-                                            * Это поле обязательно для заполнения
-                                        </p>
-                                    )}
-                                </div>
-                                <div className={style.mainInputArea}>
-                                    <input
-                                        name='phone'
-                                        className={`${style.input} ${errors.phone ? style.errorInput : ""}`}
-                                        defaultValue='+996'
-                                        {...register("phone", {
-                                            required: true,
-                                            validate: validatePhoneNumber
-                                        })}
-                                        onInput={handlePhoneChange}
-                                    />
-                                    {errors.phone && (
-                                        <p className={style.errorMessage}
-                                        >
-                                            * Это поле обязательно для заполнения
-                                        </p>
-                                    )}
-                                </div>
-
+                {message && (message === "error" ?
+                    <DoneModal background={"red"} message={"Произошла ошибка"} caption={"Приносим извинения"}/> :
+                    <DoneModal message={"Регистрация прошла успешно!"}
+                               caption={"Играйте и соберите все коины!"}/>)}
+                <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
+                    <p className={style.message}>Регистрация</p>
+                    <div className={style.inputAreaItself}>
+                        <div className={style.wrapper}>
+                            <div className={style.inputArea}>
+                                <input
+                                    name='name'
+                                    placeholder='Ваше ФИО'
+                                    className={`${style.input} ${errors.name ? style.errorInput : ""}`}
+                                    maxLength={50}
+                                    {...register("name", {
+                                        required: true,
+                                        validate: checkName
+                                    })}
+                                />
+                                {errors.name && (
+                                    <p
+                                        className={style.errorMessage}
+                                    >
+                                        * Это поле обязательно для заполнения
+                                    </p>
+                                )}
                             </div>
-                            <button className={style.button} type='submit'>SEND</button>
+                            <div className={style.mainInputArea}>
+                                <input
+                                    name='phone'
+                                    className={`${style.input} ${errors.phone ? style.errorInput : ""}`}
+                                    defaultValue='+996'
+                                    {...register("phone", {
+                                        required: true,
+                                        validate: validatePhoneNumber
+                                    })}
+                                    onInput={handlePhoneChange}
+                                />
+                                {errors.phone && (
+                                    <p className={style.errorMessage}
+                                    >
+                                        * Это поле обязательно для заполнения
+                                    </p>
+                                )}
+                            </div>
+
                         </div>
-                    </form>
+                        <button className={style.button} type='submit'>Регистрировать</button>
+                    </div>
+                </form>
             </div>
-        </div>) : null
-    ;
+        </div>)
+        ;
+
 };
 export default RegistrationModal;
