@@ -37,7 +37,7 @@ function Leader() {
         const updateResponse = await fetch(`${MOCK_API_URL}/${userId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, phone, coin }),
+          body: JSON.stringify({ name, phone, coin}),
         });
 
         const updateResult = await updateResponse.json();

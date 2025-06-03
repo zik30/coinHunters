@@ -120,10 +120,8 @@ const RegistrationModal = () => {
             setMessage(null);
             const formattedPhone = formatPhoneNumber(data.phone);
             await sendToMockApi(data.name, formattedPhone);
-
             localStorage.setItem("phone", data.phone);
             localStorage.setItem("name", data.name);
-
             reset();
             document.body.style.overflow = "scroll";
         } catch (error) {
@@ -134,8 +132,6 @@ const RegistrationModal = () => {
     const onClose = () => {
         navigate("/")
     }
-
-
     return (
         <div className={style.modalOverlay}>
             <div className={style.modal}>
