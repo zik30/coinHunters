@@ -117,7 +117,7 @@ export async function room1(
   setCameraZones(k, map, cameras);
 
   const exits = roomLayers[4].objects;
-  setExitZones(k, map, exits, "room2", { selectedCharacter });
+  setExitZones(k, map, exits, "room2", selectedCharacter );
 
 
   healthBar.setEvents();
