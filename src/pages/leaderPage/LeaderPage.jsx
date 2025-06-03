@@ -70,7 +70,7 @@ function Leader() {
 
   return (
     <div className={styles.wrapper}>
-      <Header/>
+      <Header />
       <div className={styles.container}>
         <div className={styles.leaderboardTextBlock}>
           <h4>leaderboard</h4>
@@ -100,9 +100,9 @@ function Leader() {
                     player.phone === phone ? styles.highlightedRow : ""
                   }`}
                 >
-                  <td>{i + 1}</td>
-                  <td>{player.name}</td>
-                  <td>{player.coin}</td>
+                  <td><div>{i + 1}</div></td>
+                  <td><div>{player.name}</div></td>
+                  <td><div>{player.coin}</div></td>
                 </tr>
               ))}
           </tbody>

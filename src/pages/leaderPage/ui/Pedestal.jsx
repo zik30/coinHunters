@@ -1,6 +1,9 @@
 
 import React from 'react';
 import styles from "./Pedestal.module.scss"
+import first from '/icons/coin350.png'
+import second from '/icons/coin250.png'
+import third from '/icons/coin150.png'
 
 const Pedestal = ({data}) => {
 
@@ -10,6 +13,9 @@ const Pedestal = ({data}) => {
                 
                 <div className={styles.leaderboardPlayers}>
                     <div className={styles.leaderboardPlayersSecond}>
+                        <div className={styles.secondCircle}>
+                            <img src={second} alt="2nd place coin" />
+                        </div>
                         {data[1] && (
                             <>
                                 <div className={styles.leaderboardPlayersHeader}>
@@ -21,6 +27,9 @@ const Pedestal = ({data}) => {
                     </div>
 
                     <div className={styles.leaderboardPlayersFirst}>
+                        <div className={styles.firstCircle}>
+                            <img src={first} alt="1st place coin" />
+                        </div>
                         {data[0] && (
                             <>
                                 <div className={styles.leaderboardPlayersHeader}>
@@ -32,6 +41,9 @@ const Pedestal = ({data}) => {
                     </div>
 
                     <div className={styles.leaderboardPlayersThird}>
+                        <div className={styles.thirdCircle}>
+                            <img src={third} alt="3rd place coin" />
+                        </div>
                         {data[2] && (
                             <>
                                 <div className={styles.leaderboardPlayersHeader}>

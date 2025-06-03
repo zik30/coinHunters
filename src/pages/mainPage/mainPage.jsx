@@ -1,11 +1,11 @@
 
-import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './MainPage.module.scss'
 import Instruction from '../../components/instruction/Instruction.jsx';
 import Header from '../../components/header/Header.jsx';
 import CharactersSlider from '../../components/charactersSlider/CharactersSlider.jsx';
-import RegistrationModal from '../registrationPage/registrationPage.jsx';
+import img from '/icons/Vector.png'
+
 const MainPage = () => {
     // useEffect(() => {
     //     const timer = setTimeout(() => {
@@ -32,6 +32,15 @@ const MainPage = () => {
                    
                 </div>
             </section>
+            <section className={styles.aboutSection}>
+                <div className={styles.logo}>
+                    <img src={img} alt="Geeks logo two" />
+                </div>
+                <div className={styles.text}>
+                    <h2>Окунись в увлекательную атмосферу GEEKS</h2>
+                    <p>Выбери себе своего персонажа-учителя, открывай себе новые направления, начни понимать систему работы менторов</p>
+                </div>
+            </section>
             <section className={styles.sliderSection}>
                 <h2 className={styles.sliderTitle}>Geeks персонажи</h2>
                 <p className={styles.sliderSubtitle}>персонажами являются реальные преподаватели/менторы GeeksAcademy</p>
@@ -40,6 +49,11 @@ const MainPage = () => {
             <section className={styles.instructionSection}>
                 <h2 className={styles.instructionTitle}>Управление</h2>
                 <Instruction />
+            </section>
+            <section className={styles.challengeSection}>
+                <h2>Готов к испытанию?</h2>
+                <p>Зарегистрируйся, соревнуйся в таблице лидеров и докажи, что достоин Коинов!</p>
+                <button>Регистрация</button>
             </section>
             <footer>
                 <p>made by css Ninjas</p>
