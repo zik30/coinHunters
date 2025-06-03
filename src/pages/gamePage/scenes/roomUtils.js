@@ -236,7 +236,7 @@ export function setCameraZones(k, map, cameras) {
   }
 }
 
-export function setExitZones(k, map, exits, destinationName) {
+export function setExitZones(k, map, exits, destinationName, selectedCharacter) {
   for (const exit of exits) {
     const exitZone = map.add([
       k.pos(exit.x, exit.y),
@@ -268,7 +268,7 @@ export function setExitZones(k, map, exits, destinationName) {
         return;
       }
 
-      k.go(destinationName, { exitName: exit.name });
+      k.go(destinationName, { selectedCharacter, exitName: exit.name });
     });
   }
 }

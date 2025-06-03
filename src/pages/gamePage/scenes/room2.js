@@ -26,7 +26,7 @@ export function room2(
   const counter = makeCounter(k);
 
   k.camScale(4);
-  k.camPos(170, 100);
+  k.camPos(170, 700);
   k.setGravity(1000);
 
   const roomLayers = roomData.layers;
@@ -81,7 +81,7 @@ export function room2(
   setCameraZones(k, map, cameras);
 
   const exits = roomLayers[4].objects;
-  setExitZones(k, map, exits, "room1");
+  setExitZones(k, map, exits, "room1", selectedCharacter);
 
   healthBar.setEvents();
   healthBar.trigger("update");
