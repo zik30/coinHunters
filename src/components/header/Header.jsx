@@ -6,7 +6,9 @@ import styles from './Header.module.scss'
 const Header = () => {
   return (
     <header className='container'>
-          <h1>CH</h1>
+      <Link to='/' style={{color: 'white'}}>
+        <h1>CH</h1>
+      </Link>
             <ul className={styles.list}>
               <li className={styles.active}>
                 <Link to='/leaderboard' className={styles.liActive}>
