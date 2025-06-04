@@ -5,7 +5,7 @@ import Instruction from '../../components/instruction/Instruction.jsx';
 import Header from '../../components/header/Header.jsx';
 import CharactersSlider from '../../components/charactersSlider/CharactersSlider.jsx';
 import img from '/icons/Vector.png'
-import video from './ui/video.mp4'
+import video from './ui/video_2.mp4'
 
 const MainPage = () => {
     // useEffect(() => {
