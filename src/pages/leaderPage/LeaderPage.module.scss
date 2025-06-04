@@ -1,7 +1,7 @@
 
 
 .wrapper{
-    background-color: #111111;
+    background-color: $black-color;
     min-height: 100vh;
     .leaderboardTextBlock{
     width: 1200px;
@@ -29,15 +29,15 @@
             .title{
                 font-size: 60px;
                 font-family: 'Press Start 2P', sans-serif;
-                color: #ffe743;
+                color: $accent-color;
                 padding: 10px;
-                background-color: #222122;
+                background-color: $black-color;
                 margin: 0;
             }
             .p{
                 font-size: 20px;
                 font-family: 'Press Start 2P', sans-serif;
-                color: #c6232d;
+                color: $error-color;
             }
         }
         table{
@@ -45,19 +45,19 @@
             margin: 20px auto;
             padding: 10px;
             text-align: center;
-            color: #222122;
+            color: $black-color;
             border-spacing: 0 20px;
             border-collapse: separate; 
             
             thead{
                 div{
                     padding: 10px;
-                    background-color: #222122;
+                    background-color: $black-color;
                     width: 580px;
                 }
                 tr{
                     width: 580px;
-                    color: #ffe743;
+                    color: $accent-color;
                     font-size: 20px;
                     font-family: 'Press Start 2P', sans-serif;
                 }
@@ -66,7 +66,7 @@
                 tr{
                     font-size: 18px;
                     font-family: sans-serif;
-                    color: #eeeeee;
+                    color: $white-color;
                     margin: 40px 0;
                     transition: all 0.3s ease;
                     &:nth-child(even){
@@ -74,6 +74,11 @@
                     }
                     &:nth-child(odd){
                         background-color: #222122;
+                    }
+                    &:hover{
+                        background-color: $third-color;
+                        color: #222122;
+                        scale: 1.05;
                     }
 
                 }
@@ -83,11 +88,12 @@
                     justify-content: center;
                     align-items: center;
                     border-radius: 10px;
+                    transition: all 0.3s ease;
                 }
                 .highlightedRow{
-                    background-color: #d8fa00 !important;
+                    background-color: $accent-color !important;
                     color: #222122;
-                    scale: 1.05;
+                    scale: 1.1;
                 }
                 
             }

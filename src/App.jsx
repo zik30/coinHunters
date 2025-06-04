@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
+import './App.scss'
 import GamePage from './pages/gamePage/GamePage'
 import Leader from './pages/leaderPage/LeaderPage'
 import MainPage from './pages/mainPage/MainPage'

@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0C0C0C;
+  background: $black-color;
 }
 
 .modalHidden body {
@@ -15,34 +15,33 @@
 }
 
 .modal {
-  background-color: #222122;
   position: relative;
-  color: #fff;
+  color: $white-color;
   z-index: 1000;
-  padding: 92px 76px;
+  padding: 52px 76px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   width: 780px;
-  height: 393px;
-  border-radius: 30px;
-  background: radial-gradient(79.49% 217.1% at 11.73% 16.86%, rgba(27, 27, 27, 0.3264) 0%, rgba(255, 231, 67, 0.306) 100%) ;
-  border: 1px solid;
-  border-image-source: linear-gradient(108.95deg, #FFE743 13.07%, #E1E1E1 95.37%);
+  border-radius: $big-radius;
+  background: linear-gradient(130deg,rgba(217, 217, 217, 0) 0%, rgba(209, 183, 0, 0.51) 100%) ;
+  border: 1px solid $accent-color;
 
   .message{
     text-align: center;
-    margin: 0;
     font-weight: 500;
     font-size: 38px;
     line-height: 100%;
+    font-family: 'Press Start 2P', monospace;
+    color: $white-color;
+    margin: 0 0 32px;
+    letter-spacing: 2px;
   }
   .inputAreaItself {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 64px;
+    gap: 24px;
   }
 
   .closeButton {
@@ -54,11 +53,11 @@
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease;
-    width: 48px;
-    height: 48px;
+    width: 30px;
+    height: 30px;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 
@@ -72,80 +71,62 @@
     width: 100%;
   }
 
-  .container {
-    gap: 64px;
-  }
-
-  .wrapper {
-    gap: 45px;
-
-  }
-
-  .label {
-    color: #fff;
-    font-size: 14px;
-    margin-bottom: 8px;
-    display: block;
-
-    .required {
-      color: red;
-    }
-  }
-
   .errorInput {
-    border: 1px solid red !important;
+    border: 1px solid $error-color !important;
   }
 
   .errorMessage {
-    color: #ff4d4f;
+    color: $error-color;
     font-size: 12px;
+    margin: 0 0 13px;
   }
 }
 
 .input {
-  background: #d9d9d9;
-  height: 55px;
+  background: $white-color;
+  height: 43px;
   padding: 19px;
-  border-radius: 14px;
+  border-radius: $radius;
   border: 1px solid #ccc;
   font-weight: 300;
   font-size: 14px;
-  line-height: 16.94px;
   transition: 300ms ease-out;
   box-sizing: border-box;
 
   &::placeholder {
-    color: #000000;
+    color: $black-color;
   }
 
   &:focus {
-    border: 1px solid #00a1ba;
+    border: 2px solid $accent-color;
     outline: none;
   }
 }
 
 .errorInput {
-  border: 1px solid red;
+  border: 1px solid $error-color;
 
   &::placeholder {
-    color: red;
+    color: $error-color;
   }
 }
 
 
 .button {
-  background-color: #F0D600;
-  width: 364px;
-  border-radius: 8px;
-  height: 55px;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 100%;
-  border: 1px solid;
-  color: #000000;
+  background: $accent-color;
+  color: $black-color;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: $radius;
+  padding: 12px 38px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #00000055;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 10px;
 
   &:hover{
-    background-color: #d8fa00;
+    background-color: $hover-color;
     cursor: pointer;
   }
 }

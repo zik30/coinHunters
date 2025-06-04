@@ -5,6 +5,7 @@ import Instruction from '../../components/instruction/Instruction.jsx';
 import Header from '../../components/header/Header.jsx';
 import CharactersSlider from '../../components/charactersSlider/CharactersSlider.jsx';
 import img from '/icons/Vector.png'
+import video from './ui/video.mp4'
 
 const MainPage = () => {
     // useEffect(() => {
@@ -23,6 +24,9 @@ const MainPage = () => {
             <section className={styles.heroSection}>
                 <div className={styles.heroBg}>
                     {/* Можно добавить <video> или <img> для фона, если нужно */}
+                    <video autoPlay loop muted className={styles.heroVideo}>
+                        <source src={video} type="video/mp4" />
+                    </video>
                 </div>
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>CoinHunters</h1>
@@ -53,7 +57,9 @@ const MainPage = () => {
             <section className={styles.challengeSection}>
                 <h2>Готов к испытанию?</h2>
                 <p>Зарегистрируйся, соревнуйся в таблице лидеров и докажи, что достоин Коинов!</p>
-                <button>Регистрация</button>
+                <button >
+                    <Link to="/registration" className={styles.btn} >Играть</Link>
+                </button>
             </section>
             <footer>
                 <p>made by css Ninjas</p>
