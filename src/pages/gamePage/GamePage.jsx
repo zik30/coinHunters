@@ -19,7 +19,7 @@ const Game = () => {
 
     async function main() {
       const room1Data = await (await fetch("/maps/map-level-1.9.tmj")).json();
-      const room2Data = await (await fetch("/maps/map-level-2.9.tmj")).json();
+      const room2Data = await (await fetch("/maps/map-level-2.11.tmj")).json();
 
       k.scene("room1", (previousSceneData) => {
         room1(k, room1Data, previousSceneData);
