@@ -18,7 +18,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@styles/forward.scss";`,
+        additionalData: `@use "@styles/forward.scss" as *;`,
       },
     },
   },
