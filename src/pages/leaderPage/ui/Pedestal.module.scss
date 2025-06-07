@@ -36,7 +36,7 @@
     height: 180px;
     width: 180px;
     border-radius: 50%;
-    background-color: #FEF3A7;
+    background-color: #cdcdcd;
     position: absolute;
     top: -82px;
     display: flex;
@@ -79,6 +79,10 @@
       flex-direction: column;
       justify-content: center;
       gap: 30px;
+      transition: 0.5s ease;
+      &:hover{
+        scale: 1.1;
+      }
     }
     &First{
       position: absolute;
@@ -90,7 +94,7 @@
       border-radius: 8px;
       font-weight: 400;
       text-align: center;
-      background: #FFE743;
+      background: $accent-color;
       justify-content: start;
     }
     &Second,&Third{
@@ -103,11 +107,11 @@
       position: relative;
     }
     &Second {
-      background: #FEF3A7;
+      background: $hover-color;
 
     }
     &Third{
-      background: #D9D9D9;
+      background: $third-color;
     }
   }
 }
