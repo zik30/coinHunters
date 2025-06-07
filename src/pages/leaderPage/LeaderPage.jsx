@@ -66,7 +66,7 @@ function Leader() {
   useEffect(() => {
     updateUser(name, phone, coin.toString() ?? 0);
   }, [coin]);
-
+  console.log(coin, name)
 
   return (
     <div className={styles.wrapper}>

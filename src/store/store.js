@@ -11,7 +11,7 @@ const useUserStore = create(
             setCoin: (coin) => set((state) => ({ ...state, coin })),
         }),
         {
-            name: "user-storage", // ключ для локального хранилища
+            name: "user-storage",
         }
     )
 );
