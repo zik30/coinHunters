@@ -20,7 +20,9 @@ import { makeCounter } from "../ui/coinCounter.js";
 export async function room1(
   k,
   roomData,
-  previousSceneData = { selectedCharacter: "player" }
+  setCoinCount,
+  previousSceneData = { selectedCharacter: "player" },
+
 ) {
   const { selectedCharacter } = previousSceneData;
   setBackgroundColor(k, "#cdc3a8");
@@ -109,7 +111,7 @@ export async function room1(
     }
 
     if (position.type === "coin") {
-      map.add(makeCoin(k, k.vec2(position.x, position.y)));
+      map.add(makeCoin(k, k.vec2(position.x, position.y),setCoinCount));
     }
   }
 

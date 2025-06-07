@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./LeaderPage.module.scss";
 import Pedestal from "./ui/Pedestal.jsx";
 import Header from "../../components/header/Header.jsx";
+import useUserStore from "../../store/store.js";
 
 const columns = [
   {
@@ -37,7 +38,7 @@ function Leader() {
         const updateResponse = await fetch(`${MOCK_API_URL}/${userId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, phone, coin}),
+          body: JSON.stringify({ name, phone, coin }),
         });
 
         const updateResult = await updateResponse.json();
@@ -60,13 +61,12 @@ function Leader() {
   useEffect(() => {
     getPlayers();
   }, [updateUser]);
-  const coin = localStorage.getItem("coin");
-  const phone = localStorage.getItem("phone");
-  const name = localStorage.getItem("name");
+  const { name, phone, coin} = useUserStore();
 
   useEffect(() => {
-    updateUser(name, phone, coin ?? 0);
+    updateUser(name, phone, coin.toString() ?? 0);
   }, [coin]);
+
 
   return (
     <div className={styles.wrapper}>

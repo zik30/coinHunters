@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
 import DoneModal from "../../shared/doneModal/DoneModal.jsx";
+import useUserStore from "../../store/store.js";
 
 
 const RegistrationModal = () => {
@@ -114,14 +115,13 @@ const RegistrationModal = () => {
         return cleanedNumber;
     };
 
-
+    const { setUser } = useUserStore();
     const onSubmit = async (data) => {
         try {
             setMessage(null);
             const formattedPhone = formatPhoneNumber(data.phone);
-            await sendToMockApi(data.name, formattedPhone);
-            localStorage.setItem("phone", data.phone);
-            localStorage.setItem("name", data.name);
+            await sendToMockApi(data.name, formattedPhone,"0");
+            setUser(data.name, data.phone);
             reset();
             document.body.style.overflow = "scroll";
         } catch (error) {
@@ -132,6 +132,8 @@ const RegistrationModal = () => {
     const onClose = () => {
         navigate("/")
     }
+
+
     return (
         <div className={style.modalOverlay}>
             <div className={style.modal}>
