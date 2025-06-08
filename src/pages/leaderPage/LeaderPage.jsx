@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./LeaderPage.module.scss";
 import Pedestal from "./ui/Pedestal.jsx";
 import Header from "../../components/header/Header.jsx";
+import useUserStore from "../../store/store.js";
 
 const columns = [
   {
@@ -60,13 +61,12 @@ function Leader() {
   useEffect(() => {
     getPlayers();
   }, [updateUser]);
-  const coin = localStorage.getItem("coin");
-  const phone = localStorage.getItem("phone");
-  const name = localStorage.getItem("name");
+  const { name, phone, coin} = useUserStore();
 
   useEffect(() => {
-    updateUser(name, phone, coin ?? 0);
+    updateUser(name, phone, coin.toString() ?? 0);
   }, [coin]);
+  console.log(coin, name)
 
   return (
     <div className={styles.wrapper}>

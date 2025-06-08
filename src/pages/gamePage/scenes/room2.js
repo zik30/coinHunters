@@ -17,6 +17,7 @@ import {
 export function room2(
   k,
   roomData,
+  setCoinCount,
   previousSceneData = { selectedCharacter: "player" }
 ) {
   const { selectedCharacter } = previousSceneData;
@@ -59,7 +60,7 @@ export function room2(
     }
 
     if (position.type === "coin") {
-      map.add(makeCoin(k, k.vec2(position.x, position.y)));
+      map.add(makeCoin(k, k.vec2(position.x, position.y),setCoinCount));
     }
 
     if (position.type === "drone") {
