@@ -60,7 +60,7 @@ export function directionSelector(k) {
       ]);
       
       box.onHover(() => {
-        img.scale = 0.3;
+        img.scale = 0.22;
               
     });
       box.onHoverEnd(() => {

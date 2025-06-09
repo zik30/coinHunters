@@ -17,26 +17,23 @@ export function characterSelection(ctx) {
 
   const characters = [];
   const charactersF = [
-    { name: "player", sprite: "player",
-      description: "Frontend Developer" 
-     },
-    { name: "player2", sprite: "player2"
-      , description: "Frontend Developer"
-     },
-    { name: "player3", sprite: "player3" 
-      , description: "Frontend Developer"
-     }
+    { name: "player", sprite: "player", description: "Frontend Developer" },
+    { name: "player3", sprite: "player3", description: "Frontend Developer" },
+    { name: "front1", sprite: "front1", description: "Frontend Akjol" },
+    { name: "front2", sprite: "front2", description: "Frontend Baktybek" },
+    { name: "front3", sprite: "front3", description: "Frontend Egor" },
+    { name: "front4", sprite: "front4", description: "Frontend Felix" },
+    { name: "front5", sprite: "front5", description: "Frontend Nurdin" },
   ];
   const charactersB = [
-    { name: "player", sprite: "player" 
-      , description: "Backend Developer"
-    },
-    { name: "player2", sprite: "player2" 
-      , description: "Backend Developer"
-    },
-    { name: "player3", sprite: "player3" 
-      , description: "Backend Developer"
-    },
+    { name: "player", sprite: "player", description: "Backend Developer" },
+    { name: "player2", sprite: "player2", description: "Backend Developer" },
+    { name: "player3", sprite: "player3", description: "Backend Developer" },
+    { name: "back1", sprite: "back1", description: "Backend Elhan" },
+    { name: "back2", sprite: "back2", description: "Backend Evgeniy" },
+    { name: "back3", sprite: "back3", description: "Backend Igor" },
+    { name: "back4", sprite: "back4", description: "Backend Kanat" },
+    { name: "back5", sprite: "back5", description: "Backend Radomir" },
   ];
   const charactersA = [
     { name: "player", sprite: "player"
@@ -62,9 +59,16 @@ export function characterSelection(ctx) {
   } else if (selectedDirection === "ux/ui") {
     characters.push(...charactersF);
   }
+  const rowLength = 4;
+  const spacingX = 150;
+  const spacingY = 180;
   characters.forEach((character, index) => {
-    const x = k.width() / 2 - 150 + index * 150;
-    const y = k.height() / 2;
+    const row = Math.floor(index / rowLength);
+    const col = index % rowLength;
+    const totalInRow = Math.min(rowLength, characters.length - row * rowLength);
+    const startX = k.width() / 2 - ((totalInRow - 1) * spacingX) / 2;
+    const x = startX + col * spacingX;
+    const y = k.height() / 2 + row * spacingY;
 
     const box = k.add([
       k.rect(100, 100),
