@@ -13,10 +13,10 @@ const Game = () => {
    const {setCoin} = useUserStore()
   const canvasRef = useRef(null);
   const [coinCount, setCoinCount] = useState(0);
-  const {coin } = useUserStore()
+  const {coin} = useUserStore()
 
  useEffect(()=>{
-   setCoin(coinCount)
+   coinCount > coin ? setCoin(coinCount) : coin
  },[coinCount])
   console.log(coin)
 

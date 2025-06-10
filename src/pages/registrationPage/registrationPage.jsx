@@ -25,7 +25,6 @@ const RegistrationModal = () => {
         handleSubmit,
         reset,
         setValue,
-
         formState: {errors}
     } = useForm({mode: "all"});
 
@@ -114,7 +113,7 @@ const RegistrationModal = () => {
         }
         return cleanedNumber;
     };
-
+    const {setCoin} = useUserStore()
     const { setUser } = useUserStore();
     const onSubmit = async (data) => {
         try {
@@ -122,6 +121,7 @@ const RegistrationModal = () => {
             const formattedPhone = formatPhoneNumber(data.phone);
             await sendToMockApi(data.name, formattedPhone,"0");
             setUser(data.name, data.phone);
+            setCoin(0)
             reset();
             document.body.style.overflow = "scroll";
         } catch (error) {
