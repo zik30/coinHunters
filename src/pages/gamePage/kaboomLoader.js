@@ -32,7 +32,7 @@ export function loadAssets(k) {
     },
   });
 
-  k.loadSprite("player2", "/src/assets/sprites/akf.png", {
+  k.loadSprite("player2", "/src/assets/sprites/u2.png", {
     sliceX: 8,
     sliceY: 9,
     anims: {
@@ -144,6 +144,14 @@ export function loadAssets(k) {
   k.loadSound("boom", "./assets/sounds/Ahtung.m4a");
   k.loadSound("health", "./assets/sounds/Aliluya.m4a");
   k.loadSound("flamethrower", "./assets/sounds/flamethrower.mp3");
+  k.loadSound("Akjol-1", "/src/assets/sounds/Akjol-1.m4a");
+  k.loadSound("Akjol-2", "/src/assets/sounds/Akjol-2.m4a");
+  k.loadSound("Egor-1", "/src/assets/sounds/Egor-1.m4a");
+  k.loadSound("Egor-2", "/src/assets/sounds/Egor-2.m4a");
+  k.loadSound("Felix-Ahtung", "/src/assets/sounds/Felix-Ahtung.m4a");
+  k.loadSound("Felix-Aliluya", "/src/assets/sounds/Felix-Aliluya.m4a");
+  k.loadSound("Nurdin-1", "/src/assets/sounds/Nurdin-1.m4a");
+  k.loadSound("Nurdin-2", "/src/assets/sounds/Nurdin-2.m4a");
 
   k.loadSprite("room1", "./maps/room1.png");
   k.loadSprite("room2", "./maps/room2.png");
@@ -256,6 +264,18 @@ export function loadAssets(k) {
     },
   });
   k.loadSprite("back5", "/src/assets/sprites/RadomirSprite.png", {
+    sliceX: 8,
+    sliceY: 9,
+    anims: {
+      idle: { from: 0, to: 7, loop: true },
+      run: { from: 8, to: 13, loop: true },
+      jump: { from: 51, to: 51, loop: true },
+      fall: { from: 54, to: 54, loop: true },
+      explode: { from: 64, to: 69 },
+      attack: { from: 24, to: 28, speed: 16 },
+    },
+  });
+  k.loadSprite("mob1", "/src/assets/sprites/AlbertJSprite.png", {
     sliceX: 8,
     sliceY: 9,
     anims: {

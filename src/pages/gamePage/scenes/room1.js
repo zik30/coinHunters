@@ -24,7 +24,13 @@ export async function room1(
   previousSceneData = { selectedCharacter: "player" },
 
 ) {
-  const { selectedCharacter } = previousSceneData;
+  const { selectedCharacter } = previousSceneData || {};
+  const spriteName = selectedCharacter?.sprite || "player";
+  const attackSounds = [];
+  if (selectedCharacter?.sound1) attackSounds.push(selectedCharacter.sound1);
+  if (selectedCharacter?.sound2) attackSounds.push(selectedCharacter.sound2);
+  const pickupSound = attackSounds[0] || "health";
+
   setBackgroundColor(k, "#cdc3a8");
 
   const healthBar = makeHealthBar(k)
@@ -44,7 +50,7 @@ export async function room1(
   const tips = roomLayers[3].objects;
   setTipsRtigger(k, map, tips)
   
-  const player = map.add(makePlayer(k, healthBar, selectedCharacter));
+  const player = map.add(makePlayer(k, healthBar, spriteName, attackSounds));
   k.add([
     k.text('hello', { size: 100 }),
     k.pos(k.center().x - 90, k.center().y - 30),
@@ -107,11 +113,11 @@ export async function room1(
     }
 
     if (position.type === "cartridge") {
-      map.add(makeCartridge(k, k.vec2(position.x, position.y)));
+      map.add(makeCartridge(k, k.vec2(position.x, position.y), pickupSound));
     }
 
     if (position.type === "coin") {
-      map.add(makeCoin(k, k.vec2(position.x, position.y),setCoinCount));
+      map.add(makeCoin(k, k.vec2(position.x, position.y), setCoinCount, pickupSound));
     }
   }
 

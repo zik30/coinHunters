@@ -1,6 +1,6 @@
 import { state } from "../state/globalStateManager.js";
 
-export function makeCartridge(k, pos) {
+export function makeCartridge(k, pos, pickupSound = "health") {
   const cartridge = k.make([
     k.sprite("cartridge", { anim: "default" }),
     k.area(),
@@ -9,7 +9,8 @@ export function makeCartridge(k, pos) {
   ]);
 
   cartridge.onCollide("player", (player) => {
-    k.play("health", { volume: 0.5 });
+    console.log("[Cartridge] Playing pickup sound:", pickupSound);
+    k.play(pickupSound, { volume: 0.5 });
     if (player.hp() < state.current().maxPlayerHp) {
       player.heal(1);
     }

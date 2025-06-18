@@ -20,7 +20,13 @@ export function room2(
   setCoinCount,
   previousSceneData = { selectedCharacter: "player" }
 ) {
-  const { selectedCharacter } = previousSceneData;
+  const { selectedCharacter } = previousSceneData || {};
+  const spriteName = selectedCharacter?.sprite || "player";
+  const attackSounds = [];
+  if (selectedCharacter?.sound1) attackSounds.push(selectedCharacter.sound1);
+  if (selectedCharacter?.sound2) attackSounds.push(selectedCharacter.sound2);
+  const pickupSound = attackSounds[0] || "health";
+
   setBackgroundColor(k, "#cdc3a8");
 
   const healthBar = makeHealthBar(k);
@@ -36,7 +42,7 @@ export function room2(
   const colliders = roomLayers[1].objects;
   setMapColliders(k, map, colliders);
 
-  const player = k.add(makePlayer(k, healthBar, selectedCharacter));
+  const player = k.add(makePlayer(k, healthBar, spriteName, attackSounds));
 
   setCameraControls(k, player, map, roomData);
 
@@ -56,11 +62,11 @@ export function room2(
     }
 
     if (position.type === "cartridge") {
-      map.add(makeCartridge(k, k.vec2(position.x, position.y)));
+      map.add(makeCartridge(k, k.vec2(position.x, position.y), pickupSound));
     }
 
     if (position.type === "coin") {
-      map.add(makeCoin(k, k.vec2(position.x, position.y),setCoinCount));
+      map.add(makeCoin(k, k.vec2(position.x, position.y), setCoinCount, pickupSound));
     }
 
     if (position.type === "drone") {
