@@ -8,13 +8,7 @@ import img from '/icons/Vector.png'
 import video from './ui/video_2.mp4'
 
 const MainPage = () => {
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setModal(true);
-    //     }, 3000);
 
-    //     return () => clearTimeout(timer);
-    // }, []);
 
   return (
     <>
@@ -23,7 +17,6 @@ const MainPage = () => {
         </div>
             <section className={styles.heroSection}>
                 <div className={styles.heroBg}>
-                    {/* Можно добавить <video> или <img> для фона, если нужно */}
                     <video autoPlay loop muted className={styles.heroVideo}>
                         <source src={video} type="video/mp4" />
                     </video>
