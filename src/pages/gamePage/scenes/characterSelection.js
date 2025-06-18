@@ -17,13 +17,13 @@ export function characterSelection(ctx) {
 
   const characters = [];
   const charactersF = [
-    { name: "player", sprite: "player", description: "Frontend Developer" },
-    { name: "player3", sprite: "player3", description: "Frontend Developer" },
-    { name: "front1", sprite: "front1", description: "Frontend Akjol" },
-    { name: "front2", sprite: "front2", description: "Frontend Baktybek" },
+    { name: "player", sprite: "player", description: "Frontend Mentor" },
+   
+    { name: "front1", sprite: "front1", description: "Frontend Akjol", sound1: "Akjol-1", sound2: "Akjol-2" },
+    { name: "front2", sprite: "front2", description: "Frontend Baktybek", sound1: "Egor-1", sound2: "Egor-2" },
     { name: "front3", sprite: "front3", description: "Frontend Egor" },
-    { name: "front4", sprite: "front4", description: "Frontend Felix" },
-    { name: "front5", sprite: "front5", description: "Frontend Nurdin" },
+    { name: "front4", sprite: "front4", description: "Frontend Felix",sound1: "Felix-Ahtung", sound2: "Felix-Aliluya" },
+    { name: "front5", sprite: "front5", description: "Frontend Nurdin", sound1: "Nurdin-1", sound2: "Nurdin-2" },
   ];
   const charactersB = [
     { name: "player", sprite: "player", description: "Backend Developer" },
@@ -36,7 +36,7 @@ export function characterSelection(ctx) {
     { name: "back5", sprite: "back5", description: "Backend Radomir" },
   ];
   const charactersA = [
-    { name: "player", sprite: "player"
+    { name: "mob1", sprite: "mob1"
       , description: "Android Developer"
      },
     { name: "player2", sprite: "player2" 
@@ -109,7 +109,7 @@ export function characterSelection(ctx) {
     });
 
     box.onClick(() => {
-      k.go("room1", { selectedCharacter: character.name });
+      k.go("room1", { selectedCharacter: character });
     });
   });
 

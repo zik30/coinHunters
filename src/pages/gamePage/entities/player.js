@@ -2,7 +2,7 @@ import { state, statePropsEnum } from "../state/globalStateManager.js";
 import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
-export function makePlayer(k, healthBar, spriteName = "player") {
+export function makePlayer(k, healthBar, spriteName = "player", attackSounds = []) {
   const counter = makeCounter(k);
   return k.make([
     k.pos(),
@@ -17,6 +17,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
     {
       speed: 150,
       isAttacking: false,
+      controlHandlers: [], // <--- добавлено для предотвращения ошибки
       setPosition(x, y) {
         this.pos.x = x;
         this.pos.y = y;
@@ -29,6 +30,8 @@ export function makePlayer(k, healthBar, spriteName = "player") {
         });
       },
       setControls() {
+        console.log('[Player] setControls called', {sprite: this.sprite?.id, handlers: this.controlHandlers?.length});
+        if (this.disableControls) this.disableControls();
         this.controlHandlers = [];
 
 
@@ -39,12 +42,28 @@ export function makePlayer(k, healthBar, spriteName = "player") {
               this.doubleJump();
             }
 
+            if (key === "z") {
+              console.log("[Player] Z pressed:", {
+                curAnim: this.curAnim(),
+                isAttacking: this.isAttacking,
+                pause: state.current().pause
+              });
+            }
+
             if (
               key === "z" &&
               this.curAnim() !== "attack" &&
-              this.isGrounded() &&
               !state.current().pause
             ) {
+              let sound = attackSounds[1] || attackSounds[0];
+              if (sound) {
+                k.play(sound);
+              }
+              if (window.attackTipBox && typeof window.attackTipBox.close === "function") {
+                window.attackTipBox.close();
+                window.attackTipBox = null;
+                if (window.isAttackTipOpen) window.isAttackTipOpen = false;
+              }
               this.isAttacking = true;
               this.add([
                 k.pos(this.flipX ? -25 : 0, 10),
@@ -156,7 +175,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
           }
 
           state.set(statePropsEnum.playerHp, state.current().maxPlayerHp);
-          k.play("boom");
+          // k.play("boom");
           this.play("explode");
         });
 
