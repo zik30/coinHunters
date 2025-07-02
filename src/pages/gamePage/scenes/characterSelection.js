@@ -17,36 +17,16 @@ export function characterSelection(ctx) {
 
   const characters = [];
   const charactersF = [
-    { name: "player", sprite: "player", description: "Frontend Mentor" },
-   
-    { name: "front1", sprite: "front1", description: "Frontend Akjol", sound1: "Akjol-1", sound2: "Akjol-2" },
-    { name: "front2", sprite: "front2", description: "Frontend Baktybek", sound1: "Egor-1", sound2: "Egor-2" },
-    { name: "front3", sprite: "front3", description: "Frontend Egor" },
-    { name: "front4", sprite: "front4", description: "Frontend Felix",sound1: "Felix-Ahtung", sound2: "Felix-Aliluya" },
-    { name: "front5", sprite: "front5", description: "Frontend Nurdin", sound1: "Nurdin-1", sound2: "Nurdin-2" },
+    { name: "front4", sprite: "uxui1", description: "UX/UI Janat"},
+    { name: "front5", sprite: "uxui2", description: "UX/UI Aidana"},
   ];
   const charactersB = [
-    { name: "player", sprite: "player", description: "Backend Developer" },
-    { name: "player2", sprite: "player2", description: "Backend Developer" },
-    { name: "player3", sprite: "player3", description: "Backend Developer" },
     { name: "back1", sprite: "back1", description: "Backend Elhan" },
-    { name: "back2", sprite: "back2", description: "Backend Evgeniy" },
-    { name: "back3", sprite: "back3", description: "Backend Igor" },
     { name: "back4", sprite: "back4", description: "Backend Kanat" },
-    { name: "back5", sprite: "back5", description: "Backend Radomir" },
-  ];
+     ];
   const charactersA = [
     { name: "mob1", sprite: "mob1"
-      , description: "Android Developer"
-     },
-    { name: "player2", sprite: "player2" 
-      , description: "Android Developer"
-    },
-    { name: "player3", sprite: "player3" 
-      , description: "Android Developer"
-    },
-    { name: "player3", sprite: "player3"
-      , description: "Android Developer"
+      , description: "Android Developer Albert"
      },
   ];
 
