@@ -16,13 +16,13 @@ const MainPage = () => {
     </div>
      <div className={styles.bgc}>
             <Header/>
-
             <div className={styles.container}>
                 <main>
                     <h2>COINHUNTERS</h2>
                     <p>Исследуй карту и открывай новые способности</p>
                     <div className={styles.buttons}>
                         <Link to="/registration">
+
                             <button>Играть</button>
                         </Link>
                         <Link to="#">

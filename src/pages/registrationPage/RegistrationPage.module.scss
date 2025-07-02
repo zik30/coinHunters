@@ -1,3 +1,4 @@
+@import "../../styles/var.scss";
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -17,7 +18,7 @@
 .modal {
   background-color: #222122;
   position: relative;
-  color: #fff;
+  color: $text-color;
   z-index: 1000;
   padding: 92px 76px;
   display: flex;
@@ -80,7 +81,6 @@
     gap: 45px;
 
   }
-
   .label {
     color: #fff;
     font-size: 14px;
@@ -134,7 +134,7 @@
 
 
 .button {
-  background-color: #F0D600;
+  background-color: $accent-color;
   width: 364px;
   border-radius: 8px;
   height: 55px;
@@ -145,7 +145,7 @@
   color: #000000;
 
   &:hover{
-    background-color: #d8fa00;
+    background-color: $hover-color;
     cursor: pointer;
   }
 }

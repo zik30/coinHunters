@@ -41,7 +41,6 @@ function Leader() {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({name, phone,coin})
                 });
-
                 const updateResult = await updateResponse.json();
             }
         } catch (error) {

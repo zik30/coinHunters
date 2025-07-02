@@ -1,3 +1,4 @@
+@import "../../styles/var.scss";
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -23,7 +24,7 @@
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    background-color: #F0D600;
+    background-color: $accent-color;
   }
   &Message{
     font-weight: 400;
