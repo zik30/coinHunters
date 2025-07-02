@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { initKaboom, loadAssets } from "./kaboomLoader";
 import { room1 } from "./scenes/room1";
 import { setBackgroundColor } from "./scenes/roomUtils";
@@ -7,9 +7,18 @@ import { makeNotificationBox } from "./ui/notificationBox";
 import { characterSelection } from "./scenes/characterSelection";
 import { directionSelector } from "./scenes/directionSelector";
 import style from './GamePage.module.scss'
+import useUserStore from "../../store/store.js";
 
 const Game = () => {
+   const {setCoin} = useUserStore()
   const canvasRef = useRef(null);
+  const [coinCount, setCoinCount] = useState(0);
+  const {coin } = useUserStore()
+
+ useEffect(()=>{
+   setCoin(coinCount)
+ },[coinCount])
+  console.log(coin)
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -18,14 +27,14 @@ const Game = () => {
     loadAssets(k);
 
     async function main() {
-      const room1Data = await (await fetch("/maps/room1.json")).json();
-      const room2Data = await (await fetch("/maps/room2.json")).json();
+      const room1Data = await (await fetch("/maps/map-level-1.9.tmj")).json();
+      const room2Data = await (await fetch("/maps/map-level-2.11.tmj")).json();
 
       k.scene("room1", (previousSceneData) => {
-        room1(k, room1Data, previousSceneData);
+        room1(k, room1Data,setCoinCount, previousSceneData);
       });
       k.scene("room2", (previousSceneData) => {
-        room2(k, room2Data, previousSceneData);
+        room2(k, room2Data,setCoinCount, previousSceneData);
       });
 
       k.scene("final-exit", () => {
@@ -33,15 +42,19 @@ const Game = () => {
         k.add(
           makeNotificationBox(
             k,
-            "You escaped the factory!\n The End. Thanks for playing!"
+            "You escaped the factory!\n The End. Thanks for playing!\n\nPress ENTER to go\n to the leaderboard."
           )
         );
+        k.onKeyPress((enter)=>{
+          window.location.href = "/leaderboard";
+        })
       });
+
     }
 
     k.scene("characterSelection", characterSelection);
     k.scene("directionSelector",() => directionSelector(k) )
-    k.scene("room1", (ctx) => room1(k, ctx));
+    k.scene("room1", (ctx) => room1(k, ctx,setCoinCount));
     k.scene("room2", (ctx) => room2(k, ctx));
 
     k.scene("intro", () => {

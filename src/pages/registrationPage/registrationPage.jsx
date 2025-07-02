@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
 import DoneModal from "../../shared/doneModal/DoneModal.jsx";
+import useUserStore from "../../store/store.js";
+
 
 
 const RegistrationModal = () => {
@@ -23,9 +25,9 @@ const RegistrationModal = () => {
         handleSubmit,
         reset,
         setValue,
+
         formState: {errors}
     } = useForm({mode: "all"});
-
     const checkUserExists = async (phone) => {
         try {
             const response = await fetch("https://66a8b255e40d3aa6ff5902eb.mockapi.io/players");
@@ -39,7 +41,6 @@ const RegistrationModal = () => {
             return false;
         }
     };
-
     const sendToMockApi = async (name, phone) => {
         try {
             const userExists = await checkUserExists(phone);
@@ -64,9 +65,9 @@ const RegistrationModal = () => {
         } catch (error) {
             console.error("Ошибка:", error);
             setMessage("error");
+
         }
     };
-
 
     const checkName = value => {
         return regExpName.test(value);
@@ -88,7 +89,6 @@ const RegistrationModal = () => {
         const isValid = regExpNumber.test(cleanedNumber);
         return isValid;
     };
-
     const navigate = useNavigate()
     useEffect(() => {
         console.log(message)
@@ -96,7 +96,6 @@ const RegistrationModal = () => {
             setTimeout(() => navigate("/game"), 2000);
         }
     }, [message]);
-
 
     const formatPhoneNumber = value => {
         let cleanedNumber = value.replace(/[^\d+]/g, "").replace(/(?!^\+)\+/g, "");
@@ -106,14 +105,13 @@ const RegistrationModal = () => {
         return cleanedNumber;
     };
 
+    const { setUser } = useUserStore();
     const onSubmit = async (data) => {
         try {
             setMessage(null);
             const formattedPhone = formatPhoneNumber(data.phone);
-            await sendToMockApi(data.name, formattedPhone);
-
-            localStorage.setItem("phone", data.phone);
-            localStorage.setItem("name", data.name);
+            await sendToMockApi(data.name, formattedPhone,"0");
+            setUser(data.name, data.phone);
 
             reset();
             document.body.style.overflow = "scroll";

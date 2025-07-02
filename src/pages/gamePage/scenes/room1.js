@@ -13,16 +13,25 @@ import {
   setCameraControls,
   setCameraZones,
   setExitZones,
+  setTipsRtigger,
 } from "./roomUtils.js";
 import { makeCounter } from "../ui/coinCounter.js";
 
 export async function room1(
   k,
   roomData,
-  previousSceneData = { selectedCharacter: "player" }
+  setCoinCount,
+  previousSceneData = { selectedCharacter: "player" },
+
 ) {
-  const { selectedCharacter } = previousSceneData;
-  setBackgroundColor(k, "#a2aed5");
+  const { selectedCharacter } = previousSceneData || {};
+  const spriteName = selectedCharacter?.sprite || "player";
+  const attackSounds = [];
+  if (selectedCharacter?.sound1) attackSounds.push(selectedCharacter.sound1);
+  if (selectedCharacter?.sound2) attackSounds.push(selectedCharacter.sound2);
+  const pickupSound = attackSounds[0] || "health";
+
+  setBackgroundColor(k, "#cdc3a8");
 
   const healthBar = makeHealthBar(k)
   const counter = makeCounter(k);
@@ -34,15 +43,26 @@ export async function room1(
   const roomLayers = roomData.layers;
 
   const map = k.add([k.pos(0, 0), k.sprite("room1")]);
-  const colliders = roomLayers[4].objects;
+  const colliders = roomLayers[2].objects;
 
   setMapColliders(k, map, colliders);
 
-  const player = map.add(makePlayer(k, healthBar, selectedCharacter));
+  const tips = roomLayers[3].objects;
+  setTipsRtigger(k, map, tips)
+  
+  const player = map.add(makePlayer(k, healthBar, spriteName, attackSounds));
+  k.add([
+    k.text('hello', { size: 100 }),
+    k.pos(k.center().x - 90, k.center().y - 30),
+    k.z(1),
+    k.color(255, 255, 255),
+    k.opacity(1),
+    "popup"
+  ]);
 
   setCameraControls(k, player, map, roomData);
 
-  const positions = roomLayers[5].objects;
+  const positions = roomLayers[1].objects;
   for (const position of positions) {
     if (position.name === "player" && !previousSceneData.exitName) {
       player.setPosition(position.x, position.y);
@@ -93,20 +113,20 @@ export async function room1(
     }
 
     if (position.type === "cartridge") {
-      map.add(makeCartridge(k, k.vec2(position.x, position.y)));
+      map.add(makeCartridge(k, k.vec2(position.x, position.y), pickupSound));
     }
 
     if (position.type === "coin") {
-      map.add(makeCoin(k, k.vec2(position.x, position.y)));
+      map.add(makeCoin(k, k.vec2(position.x, position.y), setCoinCount, pickupSound));
     }
   }
 
-  const cameras = roomLayers[6].objects;
-
+  const cameras = roomLayers[5].objects;
   setCameraZones(k, map, cameras);
 
-  const exits = roomLayers[7].objects;
-  setExitZones(k, map, exits, "room2");
+  const exits = roomLayers[4].objects;
+  setExitZones(k, map, exits, "room2", selectedCharacter );
+
 
   healthBar.setEvents();
   healthBar.trigger("update");

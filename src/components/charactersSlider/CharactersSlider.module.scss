@@ -1,0 +1,91 @@
+.main {
+  width: 100%;
+  height: 100%;
+  margin: 0 20px 0 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 40px;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: transparent;
+}
+
+.card {
+  width: 350px;
+  height: 420px;
+  background: $black-color;
+  opacity: 0.9;
+  border: 2px solid $accent-color;
+  border-radius: $radius;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: 0.3s ease-in-out;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &:hover {
+    border: 2px solid $hover-color;
+  }
+}
+
+.cardName {
+  color: $accent-color;
+  font-size: 1.2rem;
+  font-family: 'Press Start 2P', monospace;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+
+.cardSurname {
+  color: $accent-color;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin-bottom: 1rem;
+}
+
+.cardRole {
+  color: $white-color;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.cardExp {
+  color: $white-color;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin-bottom: 2rem;
+}
+
+.swiperSlide {
+  text-align: center;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

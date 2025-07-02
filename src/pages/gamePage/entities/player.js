@@ -2,8 +2,8 @@ import { state, statePropsEnum } from "../state/globalStateManager.js";
 import { makeCounter } from "../ui/coinCounter.js";
 import { makeBlink } from "./entitySharedLogic.js";
 
-export function makePlayer(k, healthBar, spriteName = "player") {
-  const counter = makeCounter(k)
+export function makePlayer(k, healthBar, spriteName = "player", attackSounds = []) {
+  const counter = makeCounter(k);
   return k.make([
     k.pos(),
     k.sprite(spriteName, { anim: "idle" }),
@@ -17,6 +17,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
     {
       speed: 150,
       isAttacking: false,
+      controlHandlers: [], // <--- добавлено для предотвращения ошибки
       setPosition(x, y) {
         this.pos.x = x;
         this.pos.y = y;
@@ -29,20 +30,40 @@ export function makePlayer(k, healthBar, spriteName = "player") {
         });
       },
       setControls() {
+        console.log('[Player] setControls called', {sprite: this.sprite?.id, handlers: this.controlHandlers?.length});
+        if (this.disableControls) this.disableControls();
         this.controlHandlers = [];
+
 
         this.controlHandlers.push(
           k.onKeyPress((key) => {
-            if (key === "x") {
+            if (key === "space") {
               if (this.curAnim() !== "jump") this.play("jump");
               this.doubleJump();
+            }
+
+            if (key === "z") {
+              console.log("[Player] Z pressed:", {
+                curAnim: this.curAnim(),
+                isAttacking: this.isAttacking,
+                pause: state.current().pause
+              });
             }
 
             if (
               key === "z" &&
               this.curAnim() !== "attack" &&
-              this.isGrounded()
+              !state.current().pause
             ) {
+              let sound = attackSounds[1] || attackSounds[0];
+              if (sound) {
+                k.play(sound);
+              }
+              if (window.attackTipBox && typeof window.attackTipBox.close === "function") {
+                window.attackTipBox.close();
+                window.attackTipBox = null;
+                if (window.isAttackTipOpen) window.isAttackTipOpen = false;
+              }
               this.isAttacking = true;
               this.add([
                 k.pos(this.flipX ? -25 : 0, 10),
@@ -67,7 +88,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
 
         this.controlHandlers.push(
           k.onKeyDown((key) => {
-            if (key === "left" && !this.isAttacking) {
+            if (key === "left" && !this.isAttacking && !state.current().pause) {
               if (this.curAnim() !== "run" && this.isGrounded()) {
                 this.play("run");
               }
@@ -76,7 +97,7 @@ export function makePlayer(k, healthBar, spriteName = "player") {
               return;
             }
 
-            if (key === "right" && !this.isAttacking) {
+            if (key === "right" && !this.isAttacking && !state.current().pause) {
               if (this.curAnim() !== "run" && this.isGrounded()) {
                 this.play("run");
               }
@@ -140,10 +161,10 @@ export function makePlayer(k, healthBar, spriteName = "player") {
           healthBar.trigger("update");
         });
 
-        this.on( "getCoin", (amount) =>{
+        this.on("getCoin", (amount) => {
           state.set(statePropsEnum.coin, state.current().coin + amount);
-          counter.trigger("update"); 
-        })
+          counter.trigger("update");
+        });
 
         this.on("hurt", () => {
           makeBlink(k, this);
@@ -154,13 +175,13 @@ export function makePlayer(k, healthBar, spriteName = "player") {
           }
 
           state.set(statePropsEnum.playerHp, state.current().maxPlayerHp);
-          k.play("boom");
+          // k.play("boom");
           this.play("explode");
         });
 
         this.onAnimEnd((anim) => {
           if (anim === "explode") {
-            window.location.href = '/leaderboard'
+            window.location.href = "/leaderboard";
           }
         });
       },

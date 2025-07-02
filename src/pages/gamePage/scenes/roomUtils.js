@@ -1,4 +1,5 @@
 import { state, statePropsEnum } from "../state/globalStateManager.js";
+import { makeNotificationBox } from "../ui/notificationBox.js";
 
 export function setBackgroundColor(k, hexColorCode) {
   k.add([
@@ -39,62 +40,18 @@ export function setMapColliders(k, map, colliders) {
         }),
         k.opacity(0),
         "boss-barrier",
-        {
-          activate() {
-            k.tween(
-              this.opacity,
-              0.3,
-              1,
-              (val) => (this.opacity = val),
-              k.easings.linear
-            );
-
-            k.tween(
-              k.camPos().x,
-              collider.properties[0].value,
-              1,
-              (val) => k.camPos(val, k.camPos().y),
-              k.easings.linear
-            );
-          },
-          async deactivate(playerPosX) {
-            k.tween(
-              this.opacity,
-              0,
-              1,
-              (val) => (this.opacity = val),
-              k.easings.linear
-            );
-            await k.tween(
-              k.camPos().x,
-              playerPosX,
-              1,
-              (val) => k.camPos(val, k.camPos().y),
-              k.easings.linear
-            );
-            k.destroy(this);
-          },
-        },
       ]);
 
       bossBarrier.onCollide("player", async (player) => {
         const currentState = state.current();
         if (currentState.isBossDefeated) {
           state.set(statePropsEnum.playerInBossFight, false);
-          bossBarrier.deactivate(player.pos.x);
           return;
         }
 
         if (currentState.playerInBossFight) return;
         player.disableControls();
         player.play("idle");
-        await k.tween(
-          player.pos.x,
-          player.pos.x + 25,
-          0.2,
-          (val) => (player.pos.x = val),
-          k.easings.linear
-        );
         player.setControls();
       });
 
@@ -105,8 +62,6 @@ export function setMapColliders(k, map, colliders) {
 
         state.set(statePropsEnum.playerInBossFight, true);
 
-        bossBarrier.activate();
-        bossBarrier.use(k.body({ isStatic: true }));
       });
 
       continue;
@@ -125,9 +80,74 @@ export function setMapColliders(k, map, colliders) {
   }
 }
 
+
+export function setTipsRtigger(k, map, triggers){
+  let jumpTriggered = false
+  let attackTriggered = false
+  let isWindowOpen = false
+
+  for( const trigger of triggers){
+    if( trigger.name === 'jump'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "jump-tip"
+      ])
+      let box
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !jumpTriggered){
+          isWindowOpen = true
+          jumpTriggered = true
+          box = k.add(makeNotificationBox(k, 'press \'space\'\n to attack'))
+        }
+      })
+      k.onKeyPress("space", () => {
+          if (isWindowOpen && box) {
+            box.close()
+            box=null
+            isWindowOpen = false
+        }
+      })
+    }
+    if( trigger.name === 'attack'){
+      const triggerJump = map.add([
+        k.rect(trigger.width, trigger.height),
+        k.color(k.Color.fromHex("#eacfba")),
+        k.pos(trigger.x, trigger.y),
+        k.area({
+          collisionIgnore: ["collider"],
+        }),
+        k.opacity(0),
+        "attack-tip"
+      ])
+      let box
+      k.play("notify")
+      triggerJump.onCollide("player", ()=>{
+        if(!isWindowOpen && !attackTriggered){
+          isWindowOpen = true
+          attackTriggered = true
+          box = k.add(makeNotificationBox(k, 'press \'Z\'\n to attack'))
+        }
+      })
+      k.onKeyPress("z", () => {
+          if (isWindowOpen && box) {
+            box.close()
+            box=null
+            isWindowOpen = false
+        }
+      })
+    }
+  }
+}
+
 export function setCameraControls(k, player, map, roomData) {
   k.onUpdate(() => {
-    if (state.current().playerInBossFight) return;
+    // if (state.current().playerInBossFight) return;
 
     if (map.pos.x + 160 > player.pos.x) {
       k.camPos(map.pos.x + 160, k.camPos().y);
@@ -170,7 +190,7 @@ export function setCameraZones(k, map, cameras) {
   }
 }
 
-export function setExitZones(k, map, exits, destinationName) {
+export function setExitZones(k, map, exits, destinationName, selectedCharacter) {
   for (const exit of exits) {
     const exitZone = map.add([
       k.pos(exit.x, exit.y),
@@ -202,7 +222,7 @@ export function setExitZones(k, map, exits, destinationName) {
         return;
       }
 
-      k.go(destinationName, { exitName: exit.name });
+      k.go(destinationName, { selectedCharacter, exitName: exit.name });
     });
   }
 }

@@ -42,22 +42,25 @@ export function directionSelector(k) {
         k.pos(x, y),
         k.anchor("center"),
         k.scale(0.2), 
+        k.z(101),
         `img-${direction.name}`,
       ]);
     
       const box = k.add([
         k.rect(120, 120), 
         k.pos(x, y),
-        k.opacity(0), 
+        k.opacity(0.5), 
         k.anchor("center"),
         k.area(),
-        k.outline(2, k.rgb(255, 255, 255)),
+        k.color(170, 150, 130),
+        k.outline(2, k.rgb(179, 179, 95)),
+        k.z(100),
         "directionBox",
         { name: direction.name },
       ]);
       
       box.onHover(() => {
-        img.scale = 0.3;
+        img.scale = 0.22;
               
     });
       box.onHoverEnd(() => {

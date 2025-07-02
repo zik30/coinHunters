@@ -1,5 +1,4 @@
 import { state } from "../state/globalStateManager.js";
-import { k } from "../kaboomLoader.js";
 
 export function makeHealthBar(k) {
   return k.make([

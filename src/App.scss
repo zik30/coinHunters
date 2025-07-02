@@ -2,17 +2,26 @@
 
 html, body {
     font-family: 'Press Start 2P', sans-serif;
-    background-color: black;
-    color: white;
+    background-color: $black-color;
+    color: $white-color;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    scrollbar-width: none;
 }
 
-/* .App {
-    font-family: 'glyphmesss', sans-serif;
-    background-color: #eee;
-    height: 100vh;
-} */
+
+#root {
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 .container {
     width: 1168px;
     margin: 0 auto;

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 @import "../../styles/var.scss";
+=======
+>>>>>>> b358d4c575f8c0999351805211ee8ef8d874ad5d
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -24,7 +27,11 @@
     width: 160px;
     height: 160px;
     border-radius: 50%;
+<<<<<<< HEAD
     background-color: $accent-color;
+=======
+    background-color: #F0D600;
+>>>>>>> b358d4c575f8c0999351805211ee8ef8d874ad5d
   }
   &Message{
     font-weight: 400;
@@ -39,4 +46,8 @@
 }
 .red{
   background-color: red !important;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b358d4c575f8c0999351805211ee8ef8d874ad5d
